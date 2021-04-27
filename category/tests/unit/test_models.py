@@ -6,10 +6,15 @@ class TestCategory(TestCase):
 
     def setUp(self):
 
-        self.category = Category.objects.create(name='Jewellery', slug='jewellery')
+        self.category = Category.objects.create(
+            name='Jewellery', 
+            slug='jewellery',
+            description='Oldest artefact used to show status'
+            )
 
     def test_category_model_entry(self):
 
         category = self.category
 
-        self.assertIsInstance(category, Category)
+        self.assertTrue(isinstance(category, Category))
+        self.assertEqual(str(category), 'Jewellery')

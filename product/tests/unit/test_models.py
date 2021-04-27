@@ -29,4 +29,5 @@ class TestProduct(TestCase):
 
         product = self.product
 
-        self.assertIsInstance(product, Product)
+        self.assertTrue(isinstance(product, Product))
+        self.assertEqual(str(product), 'Napoleon Crown')
