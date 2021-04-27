@@ -1,14 +1,27 @@
 from django.test import TestCase
 from product.models import Product
+from category.models import Category
+from django.contrib.auth.models import User
 
 
 class ProductTest(TestCase):
 
     def setUp(self):
 
+        user = User.objects.create(
+            username='User',
+            email='user@test.com',
+            password='foo'
+        )
+
+        category = Category.objects.create(
+            name='Jewellery',
+            slug='jewellery'
+        )
+
         self.product = Product.objects.create(
-            category='Jewellery',
-            created_by='User',
+            category=category,
+            owner=user,
             slug='napoleon-crown',
             name='Napoleon Crown',
             description='Crown used by Napoleon Bonaparte',
