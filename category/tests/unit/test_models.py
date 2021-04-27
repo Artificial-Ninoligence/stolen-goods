@@ -2,7 +2,7 @@ from django.test import TestCase
 from category.models import Category
 
 
-class CreateCategoryTest(TestCase):
+class CategoryTest(TestCase):
 
     def test_create_category(self):
 

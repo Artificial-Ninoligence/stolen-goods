@@ -139,6 +139,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+if not DEBUG:
+    STATIC_ROOT = BASE_DIR / 'static/'
+
+# Media files are files that are uploaded by users (.jpg, .jpeg, .png, .svg, .mp4)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
