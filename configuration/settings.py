@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     # * My apps:
     'authentication.apps.AuthenticationConfig',
     'category.apps.CategoryConfig',
+    'product.apps.ProductConfig',
 
     # ! Django default apps:
     'django.contrib.admin',
