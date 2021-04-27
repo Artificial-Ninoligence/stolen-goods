@@ -21,6 +21,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # * My apps:
     'authentication.apps.AuthenticationConfig',
+    'category.apps.CategoryConfig',
 
     # ! Django default apps:
     'django.contrib.admin',
