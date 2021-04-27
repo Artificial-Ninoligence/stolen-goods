@@ -4,24 +4,17 @@ from category.models import Category
 from django.contrib.auth.models import User
 
 
-class ProductTest(TestCase):
+class TestProduct(TestCase):
 
     def setUp(self):
 
-        user = User.objects.create(
-            username='User',
-            email='user@test.com',
-            password='foo'
-        )
+        User.objects.create(username='Admin')
 
-        category = Category.objects.create(
-            name='Jewellery',
-            slug='jewellery'
-        )
+        Category.objects.create(name='Jewellery', slug='jewellery')
 
         self.product = Product.objects.create(
-            category=category,
-            owner=user,
+            category_id=1,
+            owner_id=1,
             slug='napoleon-crown',
             name='Napoleon Crown',
             description='Crown used by Napoleon Bonaparte',
@@ -32,7 +25,7 @@ class ProductTest(TestCase):
             is_active=True,
             )
 
-    def test_create_product(self):
+    def test_product_model_entry(self):
 
         product = self.product
 

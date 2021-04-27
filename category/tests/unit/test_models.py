@@ -2,10 +2,14 @@ from django.test import TestCase
 from category.models import Category
 
 
-class CategoryTest(TestCase):
+class TestCategory(TestCase):
 
-    def test_create_category(self):
+    def setUp(self):
 
-        category = Category.objects.create(name='Jewellery', slug='jewellery')
+        self.category = Category.objects.create(name='Jewellery', slug='jewellery')
+
+    def test_category_model_entry(self):
+
+        category = self.category
 
         self.assertIsInstance(category, Category)
