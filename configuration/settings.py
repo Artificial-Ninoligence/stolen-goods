@@ -3,6 +3,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# * CustomUser is the based class for CustomerUser and MerchantUser
+AUTH_USER_MODEL = 'authentication.CustomUser'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -20,9 +22,12 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # * My apps:
     'authentication.apps.AuthenticationConfig',
+    'accounts.apps.AccountsConfig',
+    'carts.apps.CartsConfig',
     'category.apps.CategoryConfig',
     'product.apps.ProductConfig',
     'store.apps.StoreConfig',
+    'transactions.apps.TransactionsConfig',
 
     # ! Django default apps:
     'django.contrib.admin',
