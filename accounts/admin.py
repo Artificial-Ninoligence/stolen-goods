@@ -1,45 +1,30 @@
-from .models import CustomerUser, MerchantUser, UserProfile
 from django.utils.html import format_html
 from django.contrib import admin
+from django.contrib.auth.models import Group
+from django.contrib.auth.admin import UserAdmin
+from .models import CustomUser, UserProfile
+from .forms import RegistrationForm
 
-class CustomerUserAdmin(admin.ModelAdmin):
+
+class CustomUserAdmin(UserAdmin):
+
     list_display = (
+        'username',
         'email',
         'first_name',
         'last_name',
-        'is_premium_account',
-        'is_customer',
         'is_active',
-        'date_joined',
         'last_login',
-        )
-    list_filter = ('email', 'first_name', 'is_premium_account', 'is_active')
-    fieldsets = (
-        (None, {'classes': ('wide', 'extrapretty'),
-                'fields': ('email', 'password')}),
-        ('Personal Info', {'fields': ('first_name', 'last_name')}),
-        ('Permissions', {'fields': ('is_customer', 'is_premium_account',)}),
-    )
-
-
-class MerchantUserAdmin(admin.ModelAdmin):
-    list_display = (
-        'email',
-        'first_name',
-        'last_name',
-        'is_merchant',
-        'is_active',
         'date_joined',
-        'last_login',
         )
-    list_filter = ('email', 'first_name', 'is_active')
-    fieldsets = (
-        (None, {'classes': ('wide', 'extrapretty'),
-                'fields': ('email', 'password')}),
-        ('Personal Info', {'fields': ('first_name', 'last_name', 'initial_name',)}),
-        ('Permissions', {'fields': ('is_merchant',)}),
-    )
 
+    list_display_links = ('email', 'first_name', 'last_name')
+    readonly_fields = ('last_login', 'date_joined')
+    ordering = ('-date_joined',)
+
+    filter_horizontal = ()
+    list_filter = ()
+    fieldsets = ()
 
 class UserProfileAdmin(admin.ModelAdmin):
 
@@ -77,7 +62,6 @@ class UserProfileAdmin(admin.ModelAdmin):
         ('Media', {'fields': ('profile_picture',)}),
     )
 
-
-admin.site.register(CustomerUser, CustomerUserAdmin)
-admin.site.register(MerchantUser, MerchantUserAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
+admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.unregister(Group)

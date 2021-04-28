@@ -1,10 +1,18 @@
 from pathlib import Path
+from decouple import config
+from django.contrib.messages import constants as messages
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # * CustomUser is the based class for CustomerUser and MerchantUser
-AUTH_USER_MODEL = 'authentication.CustomUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# * Default message tags
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -21,13 +29,13 @@ ALLOWED_HOSTS = []
 # Application definition
 INSTALLED_APPS = [
     # * My apps:
-    'authentication.apps.AuthenticationConfig',
     'accounts.apps.AccountsConfig',
     'carts.apps.CartsConfig',
     'category.apps.CategoryConfig',
     'product.apps.ProductConfig',
     'store.apps.StoreConfig',
     'transactions.apps.TransactionsConfig',
+    'victim.apps.VictimConfig',
 
     # ! Django default apps:
     'django.contrib.admin',
@@ -39,6 +47,7 @@ INSTALLED_APPS = [
 
     # ? My debug toolbar app:
     'debug_toolbar.apps.DebugToolbarConfig',
+    # 'admin_honeypot',
 ]
 
 # Internal ip for django debug tool
@@ -87,6 +96,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'category.context_processors.menu_links',
+                'carts.context_processors.counter',
             ],
         },
     },
