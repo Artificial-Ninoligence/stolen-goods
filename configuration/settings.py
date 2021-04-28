@@ -157,6 +157,10 @@ STATIC_URL = '/static/'
 
 if not DEBUG:
     STATIC_ROOT = BASE_DIR / 'static/'
+else:
+    STATICFILES_DIRS = [
+        BASE_DIR / 'static',
+    ]
 
 # Media files are files that are uploaded by users (.jpg, .jpeg, .png, .svg, .mp4)
 MEDIA_URL = '/media/'
