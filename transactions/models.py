@@ -36,13 +36,16 @@ class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     payment = models.ForeignKey(Payment, on_delete=models.CASCADE)
 
+    first_name = models.CharField(max_length=100, blank=False, null=False)
+    last_name = models.CharField(max_length=100, blank=False, null=False)
+    phone_number = models.CharField(max_length=100, blank=True, null=True)
+    email = models.EmailField(verbose_name='Email Address', max_length=255, blank=False, null=False)
     order_number = models.CharField(verbose_name='Order Nr.', max_length=255, blank=False, null=False)
     order_note = models.CharField(verbose_name='Order Note', max_length=255, blank=True, null=True)
-    order_total = models.CharField(verbose_name='Total Order', max_length=255, blank=False, null=False)
+    order_total = models.FloatField(verbose_name='Total Order')
     tax = models.FloatField(verbose_name='Tax')
     status = models.CharField(max_length=10, choices=STATUS, default='New')
     ip_address = models.CharField(verbose_name='IP Address', max_length=255, blank=True)
-    phone_number = models.CharField(verbose_name='Phone Number', max_length=255, blank=True, null=True)
     address_line_1 = models.CharField(verbose_name='Address Line 1', max_length=255, blank=False, null=False)
     address_line_2 = models.CharField(verbose_name='address Line 2', max_length=255, blank=True, null=True)
     postal_code = models.CharField(verbose_name='Postal Code', max_length=255, blank=True, null=True)
@@ -59,9 +62,15 @@ class Order(models.Model):
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
 
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
+    def full_address(self):
+        return f'{self.address_line_1} {self.address_line_2}, {self.postal_code} {self.city} {self.country}'
+
     def __str__(self):
 
-        return self.user.email
+        return self.first_name
 
 
 class OrderProduct(models.Model):

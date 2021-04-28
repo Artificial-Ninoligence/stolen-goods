@@ -19,8 +19,8 @@ class ReviewRatingAdmin(admin.ModelAdmin):
     )
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['slug', 'name', 'price', 'stock', 'is_available', 'created_at', 'updated_at']
-    list_filter = ['is_available', 'created_at']
+    list_display = ['slug', 'name', 'price', 'stock', 'is_available', 'date_created', 'date_updated']
+    list_filter = ['is_available', 'date_created']
     prepopulated_field = {'slug': ('name',)}
     inlines = [ProductGalleryInline]
 

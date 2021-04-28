@@ -21,35 +21,37 @@ class Product(models.Model):
 
     is_available = models.BooleanField(default=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
 
         verbose_name = 'Product'
         verbose_name_plural = 'Products'
-        ordering = ('-created_at',)
-
-    def empty_stock(self, stock):
-
-        if stock == 0:
-            self.in_stock = False
+        ordering = ('-date_created',)
 
     def get_url(self):
+
         return reverse('product_detail', args=[self.category.slug, self.slug])
 
-    def averageReview(self):
+    def average_review(self):
+
         reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(average=Avg('rating'))
         avg = 0
+
         if reviews['average'] is not None:
             avg = float(reviews['average'])
+
         return avg
 
-    def countReview(self):
+    def count_review(self):
+
         reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(count=Count('id'))
         count = 0
+
         if reviews['count'] is not None:
             count = int(reviews['count'])
+
         return count
 
     def __str__(self):

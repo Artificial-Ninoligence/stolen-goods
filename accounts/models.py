@@ -105,13 +105,10 @@ class UserProfile(models.Model):
         verbose_name_plural = 'User Profiles'
         ordering = ['-date_created', ]
 
+    def full_address(self):
+
+        return f'{self.address_line_1} {self.address_line_2}, {self.postal_code} {self.city} {self.country}'
+
     def __str__(self):
 
         return self.user.first_name
-
-    def get_full_address(self):
-
-        full_address = self.address_line_1 + self.address_line_2
-        full_region = self.postal_code + self.city + self.country
-
-        return full_address + ', ' + full_region
