@@ -1,7 +1,9 @@
 from django.test import TestCase
 from product.models import Product
 from category.models import Category
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class TestProduct(TestCase):
@@ -21,8 +23,7 @@ class TestProduct(TestCase):
             price=50000000000,
             image='Crown.png',
             stock=1,
-            in_stock=True,
-            is_active=True,
+            is_available=True,
             )
 
     def test_product_model_entry(self):
