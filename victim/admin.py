@@ -21,5 +21,6 @@ class VictimAdmin(admin.ModelAdmin):
             'address',
             )}),
     )
+    prepopulated_fields = {'slug': ('name',)}
 
 admin.site.register(Victim, VictimAdmin)

@@ -4,8 +4,8 @@ from .models import Category
 
 class CategoryAdmin(admin.ModelAdmin):
 
-    list_display = ['slug', 'name', 'created_at']
-    list_filter = ['name', 'created_at']
+    list_display = ['slug', 'name', 'date_created']
+    list_filter = ['name', 'date_created']
     prepopulated_fields = {'slug': ('name',)}
 
 admin.site.register(Category, CategoryAdmin)
