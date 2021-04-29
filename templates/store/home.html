@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+<section class="container font-monospace text-dark">
+    <div class="position-relative mt-1 mb-1 pt-3 pb-3">
+        <img src="{% static 'img/banners/banner.png' %}" class="img-fluid shadow-lg rounded-2" style="height: 35em;" width="100%" alt="Banner">
+        <div class="container text-center text-white position-absolute top-50 start-50 translate-middle">
+            <h1>What is your deepest darkest desire?</h1>
+            <p>In Stolen Goods, all your desire will come true..</p>
+        </div>
+    </div>
+    <header class="d-flex justify-content-between mb-2">
+        <h3 class="header-title">Product Categories</h3>
+        <a href="{% url 'store' %}" class="btn btn-outline-warning">See All</a>
+    </header>
+    <div class="row pb-3">
+        {% for category in links %}
+        <div class="rounded col-6 col-md-4 col-lg-3 pt-2 pb-2">
+            <div class="card shadow-lg">
+                <a href="{% url 'products_by_category' category.slug %}" class="text-decoration-none text-dark">
+                    <img class="card-img-top" src="{{ category.image.url }}" height="275" alt="Card image cap">
+                    <div class="text-center card-body border-top" style="height: 12em;">
+                        <h5 class="card-title border-bottom pb-2"><strong>{{ category.name }}</strong></h5>
+                        <p class="card-text">{{ category.description }}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

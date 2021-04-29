@@ -12,6 +12,18 @@ from django.contrib import messages
 from transactions.models import OrderProduct
 
 
+def home(request):
+
+    products = Product.objects.all().filter(is_available=True)
+    categories = Category.objects.all()
+    context = {
+        'products': products,
+        'categories': categories,
+    }
+
+    return render(request, 'store/home.html', context)
+
+
 def store(request, category_slug=None):
     categories = None
     products = None
