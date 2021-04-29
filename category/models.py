@@ -6,6 +6,7 @@ class Category(models.Model):
 
     slug = models.SlugField(max_length=255, unique=True)
     name = models.CharField(max_length=255, db_index=True)
+    image = models.ImageField(upload_to='category_images/', blank=False, null=False)
     description = models.TextField(blank=True, null=True)
 
     date_created = models.DateTimeField(auto_now_add=True)

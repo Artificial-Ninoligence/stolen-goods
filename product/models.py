@@ -2,22 +2,19 @@ from category.models import Category
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
-from victim.models import Victim
 from django.db.models import Avg, Count
 
 
 class Product(models.Model):
 
     category = models.ForeignKey(Category, related_name='product', on_delete=models.CASCADE)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='product_owner', on_delete=models.CASCADE)
-    victim = models.ForeignKey(Victim, on_delete=models.DO_NOTHING, blank=True, null=True)
 
     slug = models.SlugField(max_length=255, blank=False, null=True)
     name = models.CharField(max_length=255, blank=True, null=True)
     price = models.DecimalField(max_digits=20, decimal_places=2, blank=False, null=False)
     stock = models.IntegerField(default=1)
     description = models.TextField(blank=True, null=True)
-    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
+    image = models.ImageField(upload_to='product_images/main_photo', blank=True, null=True)
 
     is_available = models.BooleanField(default=True)
 
@@ -85,7 +82,7 @@ class ReviewRating(models.Model):
 
 class ProductGallery(models.Model):
     product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='product_images', max_length=255)
+    image = models.ImageField(upload_to='product_images/gallery', max_length=255)
 
     class Meta:
         verbose_name = 'Product Gallery'

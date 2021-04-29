@@ -14,14 +14,19 @@ class ReviewRatingAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'classes': ('wide', 'extrapretty'),
                 'fields': ('product', 'user',)}),
-        ('Revew and Rating Header', {'fields': ('subject', 'ip_address',)}),
+        ('Review and Rating Header', {'fields': ('subject', 'ip_address',)}),
         ('Review and Rating Details', {'fields': ('rating', 'review', 'status',)}),
     )
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['slug', 'name', 'price', 'stock', 'is_available', 'date_created', 'date_updated']
-    list_filter = ['is_available', 'date_created']
+    list_display = ['name', 'price', 'stock', 'category', 'is_available', 'date_created', 'date_updated']
+    list_filter = ['is_available', 'date_created', 'stock', 'price',]
     prepopulated_field = {'slug': ('name',)}
+    fieldsets = (
+        (None, {'classes': ('wide', 'extrapretty'),
+                'fields': ('name', 'slug',)}),
+        ('Product Details', {'fields': ('price', 'stock', 'is_available',)}),
+    )
     inlines = [ProductGalleryInline]
 
 admin.site.register(Product, ProductAdmin)

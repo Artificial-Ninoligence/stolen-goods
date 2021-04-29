@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'product.apps.ProductConfig',
     'store.apps.StoreConfig',
     'transactions.apps.TransactionsConfig',
-    'victim.apps.VictimConfig',
 
     # ! Django default apps:
     'django.contrib.admin',
