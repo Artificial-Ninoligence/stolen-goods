@@ -10,13 +10,10 @@ class TestProduct(TestCase):
 
     def setUp(self):
 
-        User.objects.create(username='Admin')
-
         Category.objects.create(name='Jewellery', slug='jewellery')
 
         self.product = Product.objects.create(
             category_id=1,
-            owner_id=1,
             slug='napoleon-crown',
             name='Napoleon Crown',
             description='Crown used by Napoleon Bonaparte',

@@ -9,7 +9,8 @@ class TestCategory(TestCase):
         self.category = Category.objects.create(
             name='Jewellery', 
             slug='jewellery',
-            description='Oldest artefact used to show status'
+            description='Oldest artefact used to show status',
+            image='jewellery.png',
             )
 
     def test_category_model_entry(self):

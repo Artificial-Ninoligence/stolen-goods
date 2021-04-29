@@ -4,11 +4,11 @@ from .models import Category
 
 class CategoryAdmin(admin.ModelAdmin):
 
-    list_display = ['name', 'date_created']
+    list_display = ['name', 'image', 'date_created']
     list_filter = ['name', 'date_created']
     fieldsets = (
         (None, {'classes': ('wide', 'extrapretty'),
-                'fields': ('name', 'slug', 'image')}),
+                'fields': ('name', 'slug', 'description', 'image')}),
     )
     prepopulated_fields = {'slug': ('name',)}
 
