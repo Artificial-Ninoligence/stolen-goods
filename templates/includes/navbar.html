@@ -1,12 +1,37 @@
 {% load static %}
+<nav class="bg-dark navbar p-md-0 navbar-expand-sm nav col-12 col-lg-auto me-lg-auto mb-2  mb-md-0 border-bottom">
+    <div class="container">
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-primary" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Language</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown07">
+              <li><a class="dropdown-item" href="#">English</a></li>
+              <li><a class="dropdown-item" href="#">German</a></li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-primary" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Currency</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown07">
+              <li><a class="dropdown-item" href="#">EUR</a></li>
+              <li><a class="dropdown-item" href="#">USD</a></li>
+            </ul>
+        </li>
+        <li>
+      </ul>
+      <ul class="navbar-nav">
+        <li><a href="#" class="nav-link"> <i class="fa fa-envelope"></i> Email </a></li>
+        <li><a href="#" class="nav-link"> <i class="fa fa-phone"></i> Call us </a></li>
+      </ul>
+    </div>
+  </nav>
 <header class="font-monospace p-3 bg-dark text-white">
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <a href="{% url 'store' %}" class="d-flex align-items-center mb-2 mb-lg-0 text-decoration-none">
+      <a href="{% url 'home' %}" class="d-flex align-items-center mb-2 mb-lg-0 text-decoration-none">
         <img src={% static 'assets/logo.svg' %} width="80" height="80" alt="Logo SVG image">
       </a>
 
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 m justify-content-center mb-md-0">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown07">
@@ -14,16 +39,26 @@
               <li><a class="dropdown-item" href="{{ category.get_url }}">{{ category.name }}</a></li>
               {% endfor %}
             </ul>
-          </li>
+        </li>
+        <li>
+          <a href="{% url 'store' %}" class="btn btn-outline-light me-2">Store</a>
+        </li>
       </ul>
 
       <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
         <input type="search" class="form-control form-control-dark" placeholder="Search...">
       </form>
 
-      <div class="text-end">
-        <button type="button" class="btn btn-outline-light me-2">Login</button>
-        <button type="button" class="btn btn-warning text-white">Sign-up</button>
+      <div class="nav-link d">  
+        <a href="{% url 'login' %}" class="btn btn-outline-light me-2">Login</a>
+        <a href="{% url 'register' %}" class="btn btn-primary text-white">Sign-up</a>
+      </div>
+      <div class="border rounded-circle p-2 border-light">
+          <a href="{% url 'cart' %}" class="">
+						  <div class="icon icon-sm pt-2 pe-1">
+                <i class="position-relative fa fa-shopping-cart fs-3 text-light"></i><span class="badge position-absolute rounded-circle badge-light bg-danger top-10 start-10 translate-middle">0</span>
+              </div>
+					</a>
       </div>
     </div>
   </div>
