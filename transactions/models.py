@@ -18,6 +18,7 @@ class Payment(models.Model):
 
         verbose_name = 'Payment'
         verbose_name_plural = 'Payments'
+        ordering = ('-date_created', '-status', '-payment_id',)
 
     def __str__(self):
 
@@ -61,12 +62,14 @@ class Order(models.Model):
 
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
+        ordering = ('-date_created',)
+        
 
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
 
     def full_address(self):
-        return f'{self.address_line_1} {self.address_line_2}, {self.postal_code} {self.city} {self.country}'
+        return f'{self.address_line_1} {self.address_line_2}'
 
     def __str__(self):
 
@@ -91,6 +94,7 @@ class OrderProduct(models.Model):
 
         verbose_name = 'Ordered Product'
         verbose_name_plural = 'Ordered Products'
+        ordering = ('-date_created',)
 
     def __str__(self):
 

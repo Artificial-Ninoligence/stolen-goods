@@ -29,6 +29,7 @@ class CartItem(models.Model):
         
         verbose_name = 'Cart Item'
         verbose_name_plural = 'Cart Items'
+        ordering = ('is_active',)
 
     def sub_total(self):
 
