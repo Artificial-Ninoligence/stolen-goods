@@ -84,7 +84,7 @@ def search(request):
     if 'keyword' in request.GET:
         keyword = request.GET['keyword']
         if keyword:
-            products = Product.objects.order_by('-created_date').filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword))
+            products = Product.objects.order_by('-date_created').filter(Q(description__icontains=keyword) | Q(name__icontains=keyword) | Q(category__name__icontains=keyword) | Q(name__icontains=keyword) | Q(category__description__icontains=keyword))
             product_count = products.count()
     context = {
         'products': products,
@@ -109,7 +109,7 @@ def submit_review(request, product_id):
                 data.subject = form.cleaned_data['subject']
                 data.rating = form.cleaned_data['rating']
                 data.review = form.cleaned_data['review']
-                data.ip = request.META.get('REMOTE_ADDR')
+                data.ip_address = request.META.get('REMOTE_ADDR')
                 data.product_id = product_id
                 data.user_id = request.user.id
                 data.save()

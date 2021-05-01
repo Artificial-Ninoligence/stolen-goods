@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Home{% endblock title %}
 {% block content %}
-<section class="container font-monospace text-dark">
+<section class="container font-monospace text-dark pb-3">
     <div class="position-relative mt-1 mb-1 pt-3 pb-3">
         <img src="{% static 'img/banners/banner.png' %}" class="img-fluid shadow-lg rounded-2" style="height: 35em;" width="100%" alt="Banner">
         <div class="container text-center text-white position-absolute top-50 start-50 translate-middle">
@@ -18,9 +18,9 @@
         {% for category in links %}
         <div class="rounded col-6 col-md-4 col-lg-3 pt-2 pb-2">
             <div class="card shadow-lg">
-                <a href="{% url 'products_by_category' category.slug %}" class="text-decoration-none text-dark">
+                <a href="{{ category.get_url }}" class="text-decoration-none text-dark">
                     <img class="card-img-top" src="{{ category.image.url }}" height="275" alt="Card image cap">
-                    <div class="card-body border-top text-center" style="height: 12em;">
+                    <div class="card-body border-top text-center" style="height: 13em;">
                         <h5 class="card-title border-bottom pb-2"><strong>{{ category.name }}</strong></h5>
                         <p class="card-text">{{ category.description }}</p>
                     </div>
