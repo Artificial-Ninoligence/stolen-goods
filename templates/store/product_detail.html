@@ -17,7 +17,7 @@
 						<li>
 							<a href="{{ single_product.image.url }}" target="mainImage"><img src="{{ single_product.image.url }}" alt="Product Image"></a>
 							{% for product_image in product_gallery %}
-							<a href="{{product_image.image.url}}" target="mainImage"><img src="{{product_image.image.url}}" alt="Product Image"></a>
+							<a href="{{ product_image.image.url }}" target="mainImage"><img src="{{ product_image.image.url }}" alt="Product Image"></a>
 							{% endfor %}
 						</li>
 					</ul>
@@ -49,7 +49,11 @@
 							{% if single_product.stock <= 0 %}
 							<h5 class="text-danger">Out of Stock</h5>
 							{% else %}
-							<button type="submit" class="btn  btn-primary"> <span class="text">Add to Cart</span> <i class="fa fa-shopping-cart"></i> </button>
+								{% if in_cart %}
+								<button type="submit" class="btn btn-success"> <span class="text">Added to Cart</span> <i class="fas fa-check"></i> </button>
+								{% else %}
+								<button type="submit" class="btn btn-primary"> <span class="text">Add to Cart</span> <i class="fas fa-shopping-cart"></i> </button>
+								{% endif %}
 							{% endif %}
 						</article>
 					</form>

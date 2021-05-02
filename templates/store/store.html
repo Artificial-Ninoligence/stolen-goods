@@ -93,17 +93,17 @@
 								</div>
 								<figcaption class="info-wrap">
 									<div class="fix-height">
-										<a href="{{ product.get_url }}" class="title">{{ product.name }}</a>
+										<a href="{{ product.get_url }}" class="title text-dark">{{ product.name }}</a>
 										<div class="price-wrap mt-2">
 											{% if product.discounted_price != None %}
-												<span class="price">{{ product.discounted_price }}</span>
-												<del class="price-old">{{ product.price }}</del>
+												<span class="price">{{ product.discounted_price }} €</span>
+												<del class="price-old">{{ product.price }} €</del>
 											{% else %}
-												<span class="price">{{ product.price }}</span>
+												<span class="price">{{ product.price }} €</span>
 											{% endif %}
 										</div>
 									</div>
-									<a href="#" class="btn btn-block btn-success">Added to cart </a>
+									<a href="{{ product.get_url }}" class="btn btn-block btn-primary">View Details</a>
 								</figcaption>
 							</figure>
 						</div>

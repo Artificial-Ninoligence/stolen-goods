@@ -7,10 +7,10 @@ class Payment(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-    payment_id = models.CharField(verbose_name='Payment ID', max_length=255, blank=False, null=False)
-    payment_method = models.CharField(verbose_name='Payment Method', max_length=255, blank=False, null=False)
-    amount_paid = models.CharField(verbose_name='Amount Paid', max_length=255, blank=False, null=False)
-    status = models.CharField(verbose_name='Payment Status', max_length=255, blank=False, null=False)
+    payment_id = models.CharField(verbose_name='Payment ID', max_length=255, null=True)
+    payment_method = models.CharField(verbose_name='Payment Method', max_length=255)
+    amount_paid = models.CharField(verbose_name='Amount Paid', max_length=255)
+    status = models.CharField(verbose_name='Payment Status', max_length=255)
 
     date_created = models.DateTimeField(auto_now_add=True)
 
@@ -34,8 +34,8 @@ class Order(models.Model):
         ('Cancelled', 'Cancelled'),
     )
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    payment = models.ForeignKey(Payment, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, blank=True, null=True)
 
     first_name = models.CharField(max_length=100, blank=False, null=False)
     last_name = models.CharField(max_length=100, blank=False, null=False)
@@ -78,8 +78,8 @@ class Order(models.Model):
 
 class OrderProduct(models.Model):
 
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    payment = models.ForeignKey(Payment, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     # variation = models.ForeignKey(Variation, on_delete=models.CASCADE)
