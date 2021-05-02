@@ -15,74 +15,53 @@ def _cart_id(request):
 
 def add_cart(request, product_id):
     current_user = request.user
-
-    # Adding the product through its ID
-    product = Product.objects.get(id=product_id)
-
+    product = Product.objects.get(id=product_id) #get the product
     # If the user is authenticated
     if current_user.is_authenticated:
-        is_cart_item_exists = CartItem.objects.filter(product=product, user=current_user).exists()
+        if request.method == 'POST':
+            try:
+                cart = Cart.objects.get(cart_id=_cart_id(request))
+            except Cart.DoesNotExist:
+                cart = Cart.objects.create(cart_id=_cart_id(request))
+                cart.save()
 
-        if is_cart_item_exists:
-            cart_item = CartItem.objects.filter(product=product, user=current_user)
-            cart_item_id_list = []
+            try:
+                cart_item = CartItem.objects.get(product=product, cart=cart)
+                cart_item.quantity += 1
+                cart_item.save()
 
-            for item in cart_item:
-                cart_item_id_list.append(item.id)
+            except CartItem.DoesNotExist:
+                cart_item = CartItem.objects.create(
+                    product=product,
+                    user=current_user,
+                    quantity=1,
+                    cart=cart,
+                    )
+                cart_item.save()
 
-            for cart_item_id in cart_item_id_list:
-                item = CartItem.objects.get(product=product, id=cart_item_id)
-                item.quantity += 1
-                item.save()
-
-            else:
-                item = CartItem.objects.create(product=product, quantity=1, user=current_user)
-                item.save()
-        else:
-            cart_item = CartItem.objects.create(
-                product = product,
-                quantity = 1,
-                user = current_user,
-            )
-            cart_item.save()
-        
         return redirect('cart')
-
     # If the user is not authenticated
     else:
-        try:
-            # get the cart using the cart_id present in the session
-            cart = Cart.objects.get(cart_id=_cart_id(request))
-        except Cart.DoesNotExist:
-            cart = Cart.objects.create(
-                cart_id = _cart_id(request)
-            )
+        if request.method == 'POST':
+            try:
+                cart = Cart.objects.get(cart_id=_cart_id(request)) # get the cart using the cart_id present in the session
+            except Cart.DoesNotExist:
+                cart = Cart.objects.create(
+                    cart_id = _cart_id(request)
+                )
+            cart.save()
 
-        cart.save()
-
-        is_cart_item_exists = CartItem.objects.filter(product=product, cart=cart).exists()
-        if is_cart_item_exists:
-            cart_item = CartItem.objects.filter(product=product, user=current_user)
-            cart_item_id_list = []
-
-            for item in cart_item:
-                cart_item_id_list.append(item.id)
-
-            for cart_item_id in cart_item_id_list:
-                item = CartItem.objects.get(product=product, id=cart_item_id)
-                item.quantity += 1
-                item.save()
-
-            else:
-                item = CartItem.objects.create(product=product, quantity=1, user=current_user)
-                item.save()
-        else:
-            cart_item = CartItem.objects.create(
-                product = product,
-                quantity = 1,
-                cart = cart,
-            )
-            cart_item.save()
+            try:
+                cart_item = CartItem.objects.get(product=product, cart=cart)
+                cart_item.quantity += 1
+                cart_item.save()
+            except CartItem.DoesNotExist:
+                cart_item = CartItem.objects.create(
+                    product=product,
+                    quantity=1,
+                    cart=cart,
+                    )
+                cart_item.save()
 
         return redirect('cart')
 

@@ -14,6 +14,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
+from .token import custom_activation_token_generator
 
 from carts.views import _cart_id
 from carts.models import Cart, CartItem
@@ -22,6 +23,9 @@ import requests
 User = get_user_model()
 
 def register(request):
+    if request.user.is_authenticated:
+        redirect('dashboard')
+
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -37,22 +41,23 @@ def register(request):
             # Create a user profile
             profile = UserProfile()
             profile.user_id = user.id
+            profile.profile_picture = 'avatar/default-avatar.png'
             profile.save()
 
             # User activation
             current_site = get_current_site(request)
-            mail_subject = 'Account activation'
+            mail_subject = 'Account Activation'
             message = render_to_string('accounts/account_verification_email.html', {
                 'user': user,
-                'domain': current_site,
+                'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': default_token_generator.make_token(user),
+                'token': custom_activation_token_generator.make_token(user),
             })
             to_email = email
             send_email = EmailMessage(mail_subject, message, to=[to_email])
             send_email.send()
 
-            # messages.success(request, 'Thank you for registering with us. Stolen Goods has sent you a verification email to your email address [max.musterman@gmail.com].')
+            # messages.success(request, 'Thank you for registering with us. Stolen Goods has sent you a verification email to your email address [ninovationlab@gmail.com].')
             return redirect('/accounts/login/?command=verification&email='+email)
     else:
         form = RegistrationForm()
@@ -131,10 +136,10 @@ def dashboard(request):
     orders = Order.objects.order_by('-date_created').filter(user_id=request.user.id, is_ordered=True)
     orders_count = orders.count()
 
-    userprofile = UserProfile.objects.get(user_id=request.user.id)
+    user_profile = UserProfile.objects.get(user_id=request.user.id)
     context = {
         'orders_count': orders_count,
-        'userprofile': userprofile,
+        'user_profile': user_profile,
     }
     return render(request, 'accounts/dashboard.html', context)
 
@@ -142,6 +147,7 @@ def dashboard(request):
 def edit_profile(request):
 
     user_profile = get_object_or_404(UserProfile, user=request.user)
+
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
@@ -156,7 +162,7 @@ def edit_profile(request):
     context = {
         'user_form': user_form,
         'profile_form': profile_form,
-        'userprofile': user_profile,
+        'user_profile': user_profile,
     }
     return render(request, 'accounts/edit_profile.html', context)
 
@@ -215,7 +221,7 @@ def activate(request, uidb64, token):
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
-    if user is not None and default_token_generator.check_token(user, token):
+    if user is not None and custom_activation_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
         messages.success(request, 'Congratulations! Your account is activated.')
@@ -239,7 +245,7 @@ def forgot_password(request):
                 'user': user,
                 'domain': current_site,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': default_token_generator.make_token(user),
+                'token': custom_activation_token_generator.make_token(user),
             })
             to_email = email
             send_email = EmailMessage(mail_subject, message, to=[to_email])
@@ -283,7 +289,7 @@ def reset_password_validate(request, uidb64, token):
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
-    if user is not None and default_token_generator.check_token(user, token):
+    if user is not None and custom_activation_token_generator.check_token(user, token):
         request.session['uid'] = uid
         messages.success(request, 'Please reset your password')
 

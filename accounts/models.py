@@ -88,7 +88,7 @@ class UserProfile(models.Model):
     
     dates_of_birth = models.DateField(verbose_name='DoB', blank=True, null=True)
     phone_number = models.CharField(verbose_name='Phone Number', max_length=255, blank=True, null=True)
-    address_line_1 = models.CharField(verbose_name='Address Line 1', max_length=255, blank=False, null=False)
+    address_line_1 = models.CharField(verbose_name='Address Line 1', max_length=255, blank=True, null=True)
     address_line_2 = models.CharField(verbose_name='address Line 2', max_length=255, blank=True, null=True)
     profile_picture = models.ImageField(upload_to=image_storage_path, verbose_name='Profile Picture', blank=True, null=True)
     postal_code = models.CharField(verbose_name='Postal Code', max_length=255, blank=True, null=True)
