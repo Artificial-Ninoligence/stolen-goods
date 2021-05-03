@@ -1,10 +1,10 @@
+"""
 ### SQL QUERIES ###
 
 # 1. Creating an object in Django Web Framework
 # (Django) CustomUser ===> (SQL) accounts_customuser table 
 
-# SQL syntax: 
-"""
+# SQL syntax:
 CREATE TABLE accounts_customuser (
     id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -38,6 +38,7 @@ CREATE TABLE accounts_userprofile (
 """
 
 # ORM Syntax in Django:
+"""
 class Migration(migrations.Migration):
 
    initial = True
@@ -246,3 +247,4 @@ class OrderProduct(models.Model):
     ...
     class Meta:
         ordering = ('-date_created')
+"""
