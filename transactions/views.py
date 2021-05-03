@@ -14,6 +14,7 @@ from django.template.loader import render_to_string
 def payments(request):
 
     body = json.loads(request.body)
+    print(body)
     order = Order.objects.get(user=request.user, is_ordered=False, order_number=body['orderID'])
 
     # Store transaction details inside Payment model
@@ -58,7 +59,7 @@ def payments(request):
 
     # Send order recieved email to customer
     mail_subject = 'Thank you for your order!'
-    message = render_to_string('transactions/order_recieved_email.html', {
+    message = render_to_string('transactions/order_received_email.html', {
         'user': request.user,
         'order': order,
     })
@@ -151,7 +152,7 @@ def order_complete(request):
 
         subtotal = 0
         for ordered_product in ordered_products:
-            subtotal += ordered_product.product_price * ordered_product.quantity
+            subtotal += ordered_product.price * ordered_product.quantity
 
         payment = Payment.objects.get(payment_id=transID)
 

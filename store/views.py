@@ -58,11 +58,11 @@ def product_detail(request, category_slug, product_slug):
 
     if request.user.is_authenticated:
         try:
-            orderproduct = OrderProduct.objects.filter(user=request.user, product_id=single_product.id).exists()
+            order_product = OrderProduct.objects.filter(user=request.user, product_id=single_product.id).exists()
         except OrderProduct.DoesNotExist:
-            orderproduct = None
+            order_product = None
     else:
-        orderproduct = None
+        order_product = None
 
     # Get the reviews
     reviews = ReviewRating.objects.filter(product_id=single_product.id, status=True)
@@ -72,8 +72,8 @@ def product_detail(request, category_slug, product_slug):
 
     context = {
         'single_product': single_product,
-        'in_cart'       : in_cart,
-        'orderproduct': orderproduct,
+        'in_cart' : in_cart,
+        'order_product': order_product,
         'reviews': reviews,
         'product_gallery': product_gallery,
     }

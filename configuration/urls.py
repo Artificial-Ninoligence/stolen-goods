@@ -6,16 +6,26 @@ import debug_toolbar
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    #path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
-    path('__debug__', include(debug_toolbar.urls)),
-    #path('securelogin/', admin.site.urls),
+
+    # Admin login page
+    path('stolen-goods-admin/', admin.site.urls),
+
+    # Fake admin login page
+    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+
+    # Debugging Tool UI
+    # path('__debug__', include(debug_toolbar.urls)),
+
+    # Home Page and all main pages
     path('', include('store.urls')),
-    path('accounts/', include('accounts.urls')),
-    path('cart/', include('carts.urls')),
+
+    # Dashboard, Registration, Login, Logout
     path('accounts/', include('accounts.urls')),
 
-    # ORDERS
+    # Cart functionality
+    path('cart/', include('carts.urls')),
+
+    # Order and Payment (Paypal implementation)
     path('transactions/', include('transactions.urls')),
 ]
 

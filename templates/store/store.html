@@ -69,13 +69,13 @@
 											<option value="2000">$2000+</option>
 										</select>
 									</div>
-								</div> <!-- form-row.// -->
+								</div>
 								<button class="btn btn-block btn-primary">Apply</button>
-							</div><!-- card-body.// -->
+							</div>
 						</div>
-					</article> <!-- filter-group .// -->
-				</div> <!-- card.// -->
-			</aside> <!-- col.// -->
+					</article>
+				</div>
+			</aside>
 			<main class="col-sm-12 col-md-9 col-lg-9">
 				<header class="border-bottom mb-4 pb-3">
 						<div class="form-inline">
@@ -101,6 +101,18 @@
 											{% else %}
 												<span class="price">{{ product.price }} €</span>
 											{% endif %}
+										</div>
+										<div class="rating-start">
+											<div class="rating-star">
+												<span>
+													<i class="fa fa-star{% if product.average_review < 0.5 %}-o{% elif product.average_review >= 0.5 and product.average_review < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+													<i class="fa fa-star{% if product.average_review < 1.5 %}-o{% elif product.average_review >= 1.5 and product.average_review < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+													<i class="fa fa-star{% if product.average_review < 2.5 %}-o{% elif product.average_review >= 2.5 and product.average_review < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+													<i class="fa fa-star{% if product.average_review < 3.5 %}-o{% elif product.average_review >= 3.5 and product.average_review < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+													<i class="fa fa-star{% if product.average_review < 4.5 %}-o{% elif product.average_review >= 4.5 and product.average_review < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+													<span>{{ product.count_review }} reviews</span>
+												</span>
+											</div>
 										</div>
 									</div>
 									<a href="{{ product.get_url }}" class="btn btn-block btn-primary">View Details</a>

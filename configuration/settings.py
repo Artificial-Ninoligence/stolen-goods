@@ -3,6 +3,12 @@ from decouple import config
 from django.contrib.messages import constants as messages
 import os
 
+# AWS S3 Media Files Configuration
+from storages.backends.s3boto3 import S3Boto3Storage
+
+class MediaStorage(S3Boto3Storage):
+    location = 'media'
+    file_overwrite = False
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -10,9 +16,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # * CustomUser is the based class for CustomerUser and MerchantUser
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-SESSION_EXPIRE_SECONDS = 3600 # Logout automatically after 1 hour
+# * Session handling: Automatic user logout system after 2 hours
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+SESSION_EXPIRE_SECONDS = 7200
 SESSION_TIMEOUT_REDIRECT = 'accounts/login'
+
+# * Reset link expiry time
 PASSWORD_RESET_TIMEOUT_DAYS = 2
 
 # * Default message tags
@@ -50,8 +59,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # ? My debug toolbar app:
-    'debug_toolbar.apps.DebugToolbarConfig',
-    # 'admin_honeypot',
+    # 'debug_toolbar.apps.DebugToolbarConfig',
+    'admin_honeypot',
 ]
 
 # Internal ip for django debug tool
@@ -79,9 +88,10 @@ DEBUG_TOOLBAR_PANELS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -193,3 +203,31 @@ EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+
+# Container Commands
+#container_commands:
+#  01_migrate:
+#    command: "django-admin.py migrate"
+#    leader_only: true
+#  02_createsuperuser:
+#    command: "echo \"from accounts.models import CustomUser; CustomUser.objects.create_superuser('first_name', 'last_name', 'your-email@gmail.com', 'yourusername', 'password')\" | python manage.py shell"
+#    leader_only: true
+#option_settings:
+#  aws:elasticbeanstalk:application:environment:
+#    DJANGO_SETTINGS_MODULE: configuration.settings
+
+# AWS S3 Static Files Configuration
+# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = 'public-read'
+AWS_LOCATION = 'static'
+
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
