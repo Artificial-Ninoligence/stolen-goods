@@ -162,7 +162,7 @@ order = Order.objects.get(order_number=order_id)
 
 # In SQL:
 # SELECT * FROM transactions_order
-# WHERE accounts_customuser_id=accounts_customuser.id
+# WHERE transactions_order.accounts_customuser_id=accounts_customuser.id
 
 # SELECT order_number FROM transactions_orderproduct
 # INNER JOIN transactions_order
@@ -200,3 +200,49 @@ cart_item.delete()
 # SELECT * FROM carts_cartitem
 # WHERE carts_cartitem.product_product_id=product_product.id
 # AND carts_cartitem.carts_cart_id=carts_cart.id
+# ------------------------------------------------------------------
+
+# 6. INDEX
+# Table: accounts_userprofile
+# Index: date_created in descending order
+class UserProfile(models.Model):
+    ...
+    class Meta:
+        ordering = ('-date_created')
+
+# Table: carts_cartitem
+# Index: is_active
+class CartItem(models.Model):
+    ...
+    class Meta:
+        ordering = ('is_active')
+
+# Table: product_product
+# Index: date_created in descending order
+class Product(models.Model):
+    ...
+    class Meta:
+        ordering = ('-date_created')
+
+# Table: transactions_payment
+# Index: date_created in descending order
+#        status in descending order
+#        payment_id in descending order
+class Payment(models.Model):
+    ...
+    class Meta:
+        ordering = ('-date_created', '-status', '-payment_id',)
+
+# Table: transactions_order
+# Index: date_created in descending order
+class Order(models.Model):
+    ...
+    class Meta:
+        ordering = ('-date_created')
+
+# Table: transactions_orderproduct
+# Index: date_created in descending order
+class OrderProduct(models.Model):
+    ...
+    class Meta:
+        ordering = ('-date_created')
