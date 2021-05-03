@@ -158,19 +158,15 @@ user.save()
 # In Python
 order = Order.objects.get(user=request.user, is_ordered=False, order_number=body['orderID'])
 order_detail = OrderProduct.objects.filter(order__order_number=order_id)
-order = Order.objects.get(order_number=order_id)
 
 
 # In SQL:
 # SELECT * FROM transactions_order
 # WHERE transactions_order.accounts_customuser_id=accounts_customuser.id
 
-# SELECT order_number FROM transactions_orderproduct
-# INNER JOIN transactions_order
+# SELECT order_number FROM transactions_order
+# INNER JOIN transactions_orderproduct
 # ON transactions_orderproduct.id=transactions_order.id
-
-# SELECT order_number FROM transactions_order 
-# WHERE order_number=id
 # ----------------------------------------------------------------------
 
 # 3. CartItem
