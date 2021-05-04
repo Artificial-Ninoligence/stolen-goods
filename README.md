@@ -10,7 +10,10 @@
 * Create database:
   * "python manage.py makemigrations"
   * "python manage.py migrate"
+* Create a super user "python manage.py createsuperuser"
 * Set up the server: "python manage.py runserver"
+* To login as an admin go to 'http://127.0.0.1:8000/stolen-goods-admin/login/?next=/stolen-goods-admin/'
+
 
 ## For the paypal sandbox:
 ### Paypal Sandbox Account: maxi.musterfrau@gmail.com
