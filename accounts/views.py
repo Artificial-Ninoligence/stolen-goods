@@ -73,8 +73,11 @@ def login(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-
         user = auth.authenticate(email=email, password=password)
+        
+        if user.is_admin:
+
+            return redirect('/stolen-goods-admin')
 
         if user is not None:
             try:
