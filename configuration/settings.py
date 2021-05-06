@@ -1,6 +1,7 @@
 from pathlib import Path
 from decouple import config
 from django.contrib.messages import constants as messages
+import os
 
 # AWS S3 Media Files Configuration
 from storages.backends.s3boto3 import S3Boto3Storage
@@ -126,11 +127,11 @@ WSGI_APPLICATION = 'configuration.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': config('POSTGRE_USERNAME'),
-        'PASSWORD': config('POSTGRE_PASSWORD'),
-        'HOST': config('POSTGRE_HOSTNAME'),
-        'PORT': config('POSTGRE_PORT'),
+        'NAME': os.environ.get('POSTGRE_DB_NAME'),
+        'USER': os.environ.get('POSTGRE_USERNAME'),
+        'PASSWORD': os.environ.get('POSTGRE_PASSWORD'),
+        'HOST': os.environ.get('POSTGRE_HOSTNAME'),
+        'PORT': os.environ.get('POSTGRE_PORT'),
     }
 }
 
