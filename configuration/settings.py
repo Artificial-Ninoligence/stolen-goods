@@ -1,7 +1,6 @@
 from pathlib import Path
 from decouple import config
 from django.contrib.messages import constants as messages
-import os
 
 # AWS S3 Media Files Configuration
 from storages.backends.s3boto3 import S3Boto3Storage
@@ -127,11 +126,11 @@ WSGI_APPLICATION = 'configuration.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRE_DB_NAME'),
-        'USER': os.environ.get('POSTGRE_USERNAME'),
-        'PASSWORD': os.environ.get('POSTGRE_PASSWORD'),
-        'HOST': os.environ.get('POSTGRE_HOSTNAME'),
-        'PORT': os.environ.get('POSTGRE_PORT'),
+        'NAME': config('POSTGRE_DB_NAME'),
+        'USER': config('POSTGRE_USERNAME'),
+        'PASSWORD': config('POSTGRE_PASSWORD'),
+        'HOST': config('POSTGRE_HOSTNAME'),
+        'PORT': config('POSTGRE_PORT'),
     }
 }
 
@@ -187,11 +186,11 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # SMTP configuration
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_PORT = os.environ.get('EMAIL_PORT')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 
 # Container Commands
 # container_commands:
