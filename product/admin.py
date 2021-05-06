@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Product, ReviewRating, ProductGallery
 import admin_thumbnails
 
+
 @admin_thumbnails.thumbnail('image')
 class ProductGalleryInline(admin.TabularInline):
     model = ProductGallery
@@ -19,17 +20,19 @@ class ReviewRatingAdmin(admin.ModelAdmin):
         ('Review and Rating Details', {'fields': ('rating', 'review', 'status',)}),
     )
 
+
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'price', 'stock', 'category', 'is_available', 'date_created', 'date_updated']
-    list_filter = ['is_available', 'date_created', 'stock', 'price',]
+    list_filter = ['is_available', 'date_created', 'stock', 'price']
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
         (None, {'classes': ('wide', 'extrapretty'),
                 'fields': ('name', 'slug', 'category',)}),
-        ('Display Image', {'fields': ('image',)}),   
+        ('Display Image', {'fields': ('image',)}),
         ('Product Details', {'fields': ('price', 'stock', 'description', 'is_available',)}),
     )
     inlines = [ProductGalleryInline]
+
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ReviewRating, ReviewRatingAdmin)

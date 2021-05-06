@@ -5,22 +5,20 @@ from django.contrib.auth import get_user_model
 from transactions.models import Order, OrderProduct
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-
-# Verification email
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
-from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
+from django.core.exceptions import ObjectDoesNotExist
 from .token import custom_activation_token_generator
-
 from carts.views import _cart_id
 from carts.models import Cart, CartItem
 import requests
 
+
 User = get_user_model()
+
 
 def register(request):
     if request.user.is_authenticated:
@@ -35,7 +33,13 @@ def register(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             username = email.split("@")[0]
-            user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
+            user = User.objects.create_user(
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                username=username,
+                password=password
+                )
             user.save()
 
             # Create a user profile
@@ -57,11 +61,10 @@ def register(request):
             send_email = EmailMessage(mail_subject, message, to=[to_email])
             send_email.send()
 
-            # messages.success(request, 'Thank you for registering with us. Stolen Goods has sent you a verification email to your email address [ninovationlab@gmail.com].')
             return redirect('/accounts/login/?command=verification&email='+email)
     else:
         form = RegistrationForm()
-    
+
     context = {
         'form': form,
     }
@@ -70,13 +73,13 @@ def register(request):
 
 
 def login(request):
+
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
         user = auth.authenticate(email=email, password=password)
-        
-        if user.is_admin:
 
+        if user.is_admin:
             return redirect('/stolen-goods-admin')
 
         if user is not None:
@@ -100,7 +103,7 @@ def login(request):
                     for item in cart_item:
                         item.user = user
                         item.save()
-            except:
+            except ObjectDoesNotExist:
                 pass
 
             auth.login(request, user)
@@ -115,8 +118,7 @@ def login(request):
                     next_page = params['next']
 
                     return redirect(next_page)
-            except:
-
+            except ValueError:
                 return redirect('dashboard')
         else:
             messages.error(request, 'Invalid login credentials')
@@ -126,7 +128,7 @@ def login(request):
     return render(request, 'accounts/login.html')
 
 
-@login_required(login_url = 'login')
+@login_required(login_url='login')
 def logout(request):
 
     auth.logout(request)
@@ -134,7 +136,8 @@ def logout(request):
 
     return redirect('login')
 
-@login_required(login_url = 'login')
+
+@login_required(login_url='login')
 def dashboard(request):
     orders = Order.objects.order_by('-date_created').filter(user_id=request.user.id, is_ordered=True)
     orders_count = orders.count()
@@ -145,6 +148,7 @@ def dashboard(request):
         'user_profile': user_profile,
     }
     return render(request, 'accounts/dashboard.html', context)
+
 
 @login_required(login_url='login')
 def edit_profile(request):
@@ -168,6 +172,7 @@ def edit_profile(request):
         'user_profile': user_profile,
     }
     return render(request, 'accounts/edit_profile.html', context)
+
 
 @login_required(login_url='login')
 def change_password(request):
@@ -199,6 +204,7 @@ def change_password(request):
 
     return render(request, 'accounts/change_password.html')
 
+
 @login_required(login_url='login')
 def order_detail(request, order_id):
 
@@ -217,6 +223,7 @@ def order_detail(request, order_id):
 
     return render(request, 'accounts/order_detail.html', context)
 
+
 def activate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
@@ -234,6 +241,7 @@ def activate(request, uidb64, token):
         messages.error(request, 'Invalid activation link')
 
         return redirect('register')
+
 
 def forgot_password(request):
     if request.method == 'POST':
@@ -264,6 +272,7 @@ def forgot_password(request):
 
     return render(request, 'accounts/forgotPassword.html')
 
+
 def reset_password(request):
     if request.method == 'POST':
         password = request.POST['password']
@@ -285,6 +294,7 @@ def reset_password(request):
 
         return render(request, 'accounts/resetPassword.html')
 
+
 def reset_password_validate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
@@ -301,6 +311,7 @@ def reset_password_validate(request, uidb64, token):
         messages.error(request, 'This link has been expired!')
 
         return redirect('login')
+
 
 @login_required(login_url='login')
 def my_orders(request):

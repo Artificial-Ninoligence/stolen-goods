@@ -4,8 +4,6 @@ from .models import Cart, CartItem
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
-from django.http import HttpResponse
 
 def _cart_id(request):
     cart = request.session.session_key
@@ -13,9 +11,12 @@ def _cart_id(request):
         cart = request.session.create()
     return cart
 
+
 def add_cart(request, product_id):
+
     current_user = request.user
-    product = Product.objects.get(id=product_id) #get the product
+    product = Product.objects.get(id=product_id)
+
     # If the user is authenticated
     if current_user.is_authenticated:
         if request.method == 'POST':
@@ -44,10 +45,12 @@ def add_cart(request, product_id):
     else:
         if request.method == 'POST':
             try:
-                cart = Cart.objects.get(cart_id=_cart_id(request)) # get the cart using the cart_id present in the session
+
+                # get the cart using the cart_id present in the session
+                cart = Cart.objects.get(cart_id=_cart_id(request))
             except Cart.DoesNotExist:
                 cart = Cart.objects.create(
-                    cart_id = _cart_id(request)
+                    cart_id=_cart_id(request)
                 )
             cart.save()
 
@@ -83,9 +86,9 @@ def remove_cart(request, product_id, cart_item_id):
             cart_item.quantity -= 1
             cart_item.save()
         else:
-
             cart_item.delete()
-    except:
+
+    except ObjectDoesNotExist:
         pass
 
     return redirect('cart')
@@ -136,7 +139,7 @@ def cart(request, total=0, quantity=0, cart_items=None):
         'total': total,
         'quantity': quantity,
         'cart_items': cart_items,
-        'tax'       : tax,
+        'tax': tax,
         'grand_total': grand_total,
     }
 
@@ -173,7 +176,7 @@ def checkout(request, total=0, quantity=0, cart_items=None):
         'total': total,
         'quantity': quantity,
         'cart_items': cart_items,
-        'tax'       : tax,
+        'tax': tax,
         'grand_total': grand_total,
     }
 

@@ -21,10 +21,10 @@ class MyAccountManager(BaseUserManager):
             raise ValueError('User must have an username')
 
         user = self.model(
-            email = self.normalize_email(email),
-            username = username,
-            first_name = first_name,
-            last_name = last_name,
+            email=self.normalize_email(email),
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
         )
 
         user.set_password(password)
@@ -33,11 +33,11 @@ class MyAccountManager(BaseUserManager):
 
     def create_superuser(self, first_name, last_name, email, username, password):
         user = self.create_user(
-            email = self.normalize_email(email),
-            username = username,
-            password = password,
-            first_name = first_name,
-            last_name = last_name,
+            email=self.normalize_email(email),
+            username=username,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
         )
         user.is_admin = True
         user.is_active = True
@@ -50,7 +50,7 @@ class MyAccountManager(BaseUserManager):
 class CustomUser(AbstractBaseUser):
     first_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
-    username = models.CharField(max_length=50, blank=False, null= False, unique=True)
+    username = models.CharField(max_length=50, blank=False, null=False, unique=True)
     email = models.EmailField(max_length=100, blank=False, null=False, unique=True)
 
     is_admin = models.BooleanField(default=False)
@@ -82,15 +82,21 @@ class CustomUser(AbstractBaseUser):
     def __str__(self):
         return self.email
 
+
 class UserProfile(models.Model):
 
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    
+
     dates_of_birth = models.DateField(verbose_name='DoB', blank=True, null=True)
     phone_number = models.CharField(verbose_name='Phone Number', max_length=255, blank=True, null=True)
     address_line_1 = models.CharField(verbose_name='Address Line 1', max_length=255, blank=True, null=True)
     address_line_2 = models.CharField(verbose_name='address Line 2', max_length=255, blank=True, null=True)
-    profile_picture = models.ImageField(upload_to=image_storage_path, verbose_name='Profile Picture', blank=True, null=True)
+    profile_picture = models.ImageField(
+        upload_to=image_storage_path,
+        verbose_name='Profile Picture',
+        blank=True,
+        null=True
+        )
     postal_code = models.CharField(verbose_name='Postal Code', max_length=255, blank=True, null=True)
     city = models.CharField(verbose_name='City', max_length=255, blank=True, null=True)
     state = models.CharField(verbose_name='State', max_length=255, blank=True, null=True)

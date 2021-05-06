@@ -3,7 +3,6 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser, UserProfile
-from .forms import RegistrationForm
 
 
 class CustomUserAdmin(UserAdmin):
@@ -25,6 +24,7 @@ class CustomUserAdmin(UserAdmin):
     filter_horizontal = ()
     list_filter = ()
     fieldsets = ()
+
 
 class UserProfileAdmin(admin.ModelAdmin):
 
@@ -61,6 +61,7 @@ class UserProfileAdmin(admin.ModelAdmin):
             )}),
         ('Media', {'fields': ('profile_picture',)}),
     )
+
 
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)

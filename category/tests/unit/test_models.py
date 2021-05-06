@@ -7,7 +7,7 @@ class TestCategory(TestCase):
     def setUp(self):
 
         self.category = Category.objects.create(
-            name='Jewellery', 
+            name='Jewellery',
             slug='jewellery',
             description='Oldest artefact used to show status',
             image='jewellery.png',

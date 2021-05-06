@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from carts.models import CartItem
 from .forms import OrderForm
 import datetime
@@ -10,7 +10,6 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 
 
-
 def payments(request):
 
     body = json.loads(request.body)
@@ -19,11 +18,11 @@ def payments(request):
 
     # Store transaction details inside Payment model
     payment = Payment(
-        user = request.user,
-        payment_id = body['transID'],
-        payment_method = body['payment_method'],
-        amount_paid = order.order_total,
-        status = body['status'],
+        user=request.user,
+        payment_id=body['transID'],
+        payment_method=body['payment_method'],
+        amount_paid=order.order_total,
+        status=body['status'],
     )
     payment.save()
 
@@ -45,7 +44,7 @@ def payments(request):
         orderproduct.is_ordered = True
         orderproduct.save()
 
-        cart_item = CartItem.objects.get(id=item.id)
+        # cart_item = CartItem.objects.get(id=item.id)
         orderproduct = OrderProduct.objects.get(id=orderproduct.id)
         orderproduct.save()
 
@@ -122,8 +121,8 @@ def place_order(request, total=0, quantity=0,):
             year = int(datetime.date.today().strftime('%Y'))
             month = int(datetime.date.today().strftime('%m'))
             day = int(datetime.date.today().strftime('%d'))
-            ordering_date = datetime.date(year,month,day)
-            current_date = ordering_date.strftime("%Y%m%d") #20210305
+            ordering_date = datetime.date(year, month, day)
+            current_date = ordering_date.strftime("%Y%m%d")
             order_number = current_date + str(data.id)
             data.order_number = order_number
             data.save()

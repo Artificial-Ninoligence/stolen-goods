@@ -1,14 +1,15 @@
 from pathlib import Path
 from decouple import config
 from django.contrib.messages import constants as messages
-import os
 
 # AWS S3 Media Files Configuration
 from storages.backends.s3boto3 import S3Boto3Storage
 
+
 class MediaStorage(S3Boto3Storage):
     location = 'media'
     file_overwrite = False
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +23,7 @@ SESSION_EXPIRE_SECONDS = 7200
 SESSION_TIMEOUT_REDIRECT = 'accounts/login'
 
 # * Reset link expiry time
-PASSWORD_RESET_TIMEOUT_DAYS = 2
+PASSWORD_RESET_TIMEOUT = 259200
 
 # * Default message tags
 MESSAGE_TAGS = {
@@ -134,7 +135,6 @@ DATABASES = {
 }
 
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
@@ -193,14 +193,20 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 
 # Container Commands
-#container_commands:
+# container_commands:
 #  01_migrate:
 #    command: "django-admin.py migrate"
 #    leader_only: true
 #  02_createsuperuser:
-#    command: "echo \"from accounts.models import CustomUser; CustomUser.objects.create_superuser('first_name', 'last_name', 'your-email@gmail.com', 'yourusername', 'password')\" | python manage.py shell"
+#    command: "echo \"from accounts.models import CustomUser; CustomUser.objects.create_superuser(
+# 'first_name',
+# 'last_name',
+# 'your-email@gmail.com',
+# 'yourusername',
+# 'password'
+# )\" | python manage.py shell"
 #    leader_only: true
-#option_settings:
+# option_settings:
 #  aws:elasticbeanstalk:application:environment:
 #    DJANGO_SETTINGS_MODULE: configuration.settings
 

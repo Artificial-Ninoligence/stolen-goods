@@ -63,7 +63,6 @@ class Order(models.Model):
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
         ordering = ('-date_created',)
-        
 
     def full_name(self):
         return f'{self.first_name} {self.last_name}'

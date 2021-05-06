@@ -5,8 +5,7 @@ from carts.models import CartItem
 from django.db.models import Q
 
 from carts.views import _cart_id
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.http import HttpResponse
+from django.core.paginator import Paginator
 from product.forms import ReviewRatingForm
 from django.contrib import messages
 from transactions.models import OrderProduct
@@ -28,7 +27,7 @@ def store(request, category_slug=None):
     categories = None
     products = None
 
-    if category_slug != None:
+    if category_slug:
         categories = get_object_or_404(Category, slug=category_slug)
         products = Product.objects.filter(category=categories, is_available=True)
         paginator = Paginator(products, 1)
@@ -72,7 +71,7 @@ def product_detail(request, category_slug, product_slug):
 
     context = {
         'single_product': single_product,
-        'in_cart' : in_cart,
+        'in_cart': in_cart,
         'order_product': order_product,
         'reviews': reviews,
         'product_gallery': product_gallery,
@@ -85,10 +84,10 @@ def search(request):
         keyword = request.GET['keyword']
         if keyword:
             products = Product.objects.order_by('-date_created').filter(
-                Q(description__icontains=keyword) | 
-                Q(name__icontains=keyword) | 
-                Q(category__name__icontains=keyword) | 
-                Q(name__icontains=keyword) | 
+                Q(description__icontains=keyword) |
+                Q(name__icontains=keyword) |
+                Q(category__name__icontains=keyword) |
+                Q(name__icontains=keyword) |
                 Q(category__description__icontains=keyword)
                 )
             product_count = products.count()
