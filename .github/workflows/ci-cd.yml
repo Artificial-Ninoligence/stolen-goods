@@ -74,8 +74,10 @@ jobs:
       run:  |
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Coverage report
+    - name: Full Testing Package
       run:  |
+        python3 manage.py test
+        pytest
         coverage run --omit='*/migrations/*','*/.virtualenvs/*','*/__init__.py','manage.py' manage.py test
         coverage report
       env:
@@ -89,9 +91,3 @@ jobs:
         EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
         EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
         EMAIL_USE_TLS: ${{ secrets.EMAIL_USE_TLS }}
-    - name: Django Testing
-      run:  |
-        python3 manage.py test
-    - name: Test with pytest
-      run:  |
-        pytest
