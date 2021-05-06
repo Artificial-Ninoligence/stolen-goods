@@ -78,7 +78,7 @@ jobs:
       run:  |
         coverage run --omit='*/migrations/*','*/.virtualenvs/*','*/__init__.py','manage.py' manage.py test
         coverage report
-      env
+      env:
         POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         POSTGRES_USER : ${{ secrets.POSTGRES_USER }}
         POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
