@@ -15,7 +15,7 @@ jobs:
       matrix:
         python-version: [3.7, 3.8, 3.9]
         db: [sqlite, postgres]
-        include:
+        env:
           - NAME: ${{ secrets.POSTGRE_DB_NAME }}
             USER: ${{ secrets. POSTGRE_USERNAME}}
             PASSWORD: ${{ secrets.POSTGRE_PASSWORD }}
