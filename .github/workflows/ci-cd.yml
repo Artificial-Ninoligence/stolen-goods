@@ -16,12 +16,14 @@ jobs:
         python-version: [3.7, 3.8, 3.9]
     services:
       postgres:
+        image: postgres
         env:
           NAME: ${{ secrets.POSTGRE_DB_NAME }}
           USER: ${{ secrets. POSTGRE_USERNAME}}
           PASSWORD: ${{ secrets.POSTGRE_PASSWORD }}
           HOST: ${{ secrets.POSTGRE_HOSTNAME }}
           PORT: ${{ secrets.POSTGRE_PORT }}
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
     - name: Checkout code
