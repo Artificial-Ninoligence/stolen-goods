@@ -127,11 +127,11 @@ WSGI_APPLICATION = 'configuration.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('POSTGRE_DB_NAME', default=os.environ.get('POSTGRE_DB_NAME')),
-        'USER': config('POSTGRE_USERNAME', default=os.environ.get('POSTGRE_USERNAME')),
-        'PASSWORD': config('POSTGRE_PASSWORD', default=os.environ.get('POSTGRE_PASSWORD')),
-        'HOST': config('POSTGRE_HOSTNAME', default=os.environ.get('POSTGRE_HOSTNAME')),
-        'PORT': config('POSTGRE_PORT', default=os.environ.get('POSTGRE_PORT')),
+        'NAME': config('POSTGRE_DB_NAME', default=os.environ['POSTGRE_DB_NAME']),
+        'USER': config('POSTGRE_USERNAME', default=os.environ['POSTGRE_USERNAME']),
+        'PASSWORD': config('POSTGRE_PASSWORD', default=os.environ['POSTGRE_PASSWORD']),
+        'HOST': config('POSTGRE_HOSTNAME', default=os.environ['POSTGRE_HOSTNAME']),
+        'PORT': config('POSTGRE_PORT', default=os.environ['POSTGRE_PORT']),
     }
 }
 
@@ -187,11 +187,11 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # SMTP configuration
-EMAIL_HOST = config('EMAIL_HOST', default=os.environ.get('EMAIL_HOST'))
-EMAIL_PORT = config('EMAIL_PORT', default=os.environ.get('EMAIL_PORT'))
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=os.environ.get('EMAIL_HOST_USER'))
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default=os.environ.get('EMAIL_HOST_PASSWORD'))
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=os.environ.get('EMAIL_USE_TLS'))
+EMAIL_HOST = config('EMAIL_HOST', default=os.environ['EMAIL_HOST'])
+EMAIL_PORT = config('EMAIL_PORT', default=os.environ['EMAIL_PORT'])
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=os.environ['EMAIL_HOST_USER'])
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default=os.environ['EMAIL_HOST_PASSWORD'])
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=os.environ['EMAIL_USE_TLS'])
 
 # Container Commands
 # container_commands:
