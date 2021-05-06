@@ -15,16 +15,26 @@ jobs:
       matrix:
         python-version: [3.7, 3.8, 3.9]
     services:
+      # Label used to access the service container
       postgres:
+        # Docker Hub image
         image: postgres
+        # Provide the password for postgres
         env:
           NAME: ${{ secrets.POSTGRE_DB_NAME }}
           USER: ${{ secrets. POSTGRE_USERNAME}}
           PASSWORD: ${{ secrets.POSTGRE_PASSWORD }}
           HOST: ${{ secrets.POSTGRE_HOSTNAME }}
           PORT: ${{ secrets.POSTGRE_PORT }}
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
