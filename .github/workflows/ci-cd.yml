@@ -78,6 +78,12 @@ jobs:
       run:  |
         coverage run --omit='*/migrations/*','*/.virtualenvs/*','*/__init__.py','manage.py' manage.py test
         coverage report
+      env
+        POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        POSTGRES_USER : ${{ secrets.POSTGRES_USER }}
+        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+        POSTGRES_PORT : ${{ secrets.POSTGRES_PORT }}
     - name: Django Testing
       run:  |
         python3 manage.py test
