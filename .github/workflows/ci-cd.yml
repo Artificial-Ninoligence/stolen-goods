@@ -15,16 +15,21 @@ jobs:
       matrix:
         python-version: [3.7, 3.8, 3.9]
     services:
-      db:
+      postgres:
         image: postgres:13
         env:
-          NAME: ${{ secrets.POSTGRE_DB_NAME }}
-          USER: ${{ secrets.POSTGRE_USERNAME }}
-          PASSWORD: ${{ secrets.POSTGRE_PASSWORD }}
-          HOST: ${{ secrets.POSTGRE_HOSTNAME }}
-          PORT: ${{ secrets.POSTGRE_PORT }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER : ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          POSTGRES_PORT : ${{ secrets.POSTGRES_PORT }}
         ports:
-          - 5432:5432
+        - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
     - name: Checkout code
@@ -65,10 +70,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pycodestyle pytest pytest-cov
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Start PostgreSQL
-      run:  |
-        sudo systemctl start postgresql.service
-        sudo -u postgres createuser -s runne
     - name: Lint with flake8
       run:  |
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
