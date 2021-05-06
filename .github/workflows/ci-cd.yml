@@ -17,7 +17,7 @@ jobs:
         db: [sqlite, postgres]
         env:
           - NAME: ${{ secrets.POSTGRE_DB_NAME }}
-            USER: ${{ secrets. POSTGRE_USERNAME}}
+            USER: ${{ secrets.POSTGRE_USERNAME }}
             PASSWORD: ${{ secrets.POSTGRE_PASSWORD }}
             HOST: ${{ secrets.POSTGRE_HOSTNAME }}
             PORT: ${{ secrets.POSTGRE_PORT }}
