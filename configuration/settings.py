@@ -1,7 +1,6 @@
 from pathlib import Path
 from decouple import config
 from django.contrib.messages import constants as messages
-import os
 
 # AWS S3 Media Files Configuration
 from storages.backends.s3boto3 import S3Boto3Storage
@@ -40,8 +39,9 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 
-'stolengoods.herokuapp.com']
+ALLOWED_HOSTS = [
+    '0.0.0.0', 'localhost', '127.0.0.1', 'stolengoods.herokuapp.com',
+]
 
 # Application definition
 INSTALLED_APPS = [
