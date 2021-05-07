@@ -1,15 +1,7 @@
 from pathlib import Path
 from decouple import config
 from django.contrib.messages import constants as messages
-
-# AWS S3 Media Files Configuration
-from storages.backends.s3boto3 import S3Boto3Storage
-
-
-class MediaStorage(S3Boto3Storage):
-    location = 'media'
-    file_overwrite = False
-
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -64,6 +56,7 @@ INSTALLED_APPS = [
     # ? My debug toolbar app:
     # 'debug_toolbar.apps.DebugToolbarConfig',
     'admin_honeypot',
+    'whitenoise.runserver_nostatic',
 ]
 
 # Internal ip for django debug tool
@@ -90,6 +83,7 @@ DEBUG_TOOLBAR_PANELS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -136,6 +130,8 @@ DATABASES = {
     }
 }
 
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -171,13 +167,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_URL = '/static/'
-
-if not DEBUG:
-    STATIC_ROOT = BASE_DIR / 'static/'
-else:
-    STATICFILES_DIRS = [
-        BASE_DIR / 'static',
-    ]
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files are files that are uploaded by users (.jpg, .jpeg, .png, .svg, .mp4)
 MEDIA_URL = '/media/'
@@ -193,37 +187,3 @@ EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
-
-# Container Commands
-# container_commands:
-#  01_migrate:
-#    command: "django-admin.py migrate"
-#    leader_only: true
-#  02_createsuperuser:
-#    command: "echo \"from accounts.models import CustomUser; CustomUser.objects.create_superuser(
-# 'first_name',
-# 'last_name',
-# 'your-email@gmail.com',
-# 'yourusername',
-# 'password'
-# )\" | python manage.py shell"
-#    leader_only: true
-# option_settings:
-#  aws:elasticbeanstalk:application:environment:
-#    DJANGO_SETTINGS_MODULE: configuration.settings
-
-# AWS S3 Static Files Configuration
-# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = 'public-read'
-AWS_LOCATION = 'static'
-
-# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
