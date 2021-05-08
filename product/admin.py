@@ -22,7 +22,16 @@ class ReviewRatingAdmin(admin.ModelAdmin):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'discounted_price', 'stock', 'category', 'is_available', 'date_created', 'date_updated']
+    list_display = [
+        'name',
+        'price',
+        'discounted_price',
+        'stock',
+        'category',
+        'is_available',
+        'date_created',
+        'date_updated'
+        ]
     list_filter = ['is_available', 'date_created', 'stock', 'price']
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
