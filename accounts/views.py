@@ -78,9 +78,6 @@ def login(request):
         password = request.POST['password']
         user = auth.authenticate(email=email, password=password)
 
-        if user.is_admin:
-            return redirect('/stolen-goods-admin')
-
         if user is not None:
             try:
                 cart = Cart.objects.get(cart_id=_cart_id(request))
