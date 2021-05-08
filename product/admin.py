@@ -22,14 +22,14 @@ class ReviewRatingAdmin(admin.ModelAdmin):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'stock', 'category', 'is_available', 'date_created', 'date_updated']
+    list_display = ['name', 'price', 'discounted_price', 'stock', 'category', 'is_available', 'date_created', 'date_updated']
     list_filter = ['is_available', 'date_created', 'stock', 'price']
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
         (None, {'classes': ('wide', 'extrapretty'),
                 'fields': ('name', 'slug', 'category',)}),
         ('Display Image', {'fields': ('image',)}),
-        ('Product Details', {'fields': ('price', 'stock', 'description', 'is_available',)}),
+        ('Product Details', {'fields': ('stock', 'price', 'discounted_price', 'description', 'is_available',)}),
     )
     inlines = [ProductGalleryInline]
 

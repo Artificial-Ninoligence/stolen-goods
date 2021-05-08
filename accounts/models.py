@@ -93,6 +93,7 @@ class UserProfile(models.Model):
     address_line_2 = models.CharField(verbose_name='address Line 2', max_length=255, blank=True, null=True)
     profile_picture = models.ImageField(
         upload_to=image_storage_path,
+        default='avatar/avatar-default.png',
         verbose_name='Profile Picture',
         blank=True,
         null=True

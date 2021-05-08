@@ -54,7 +54,11 @@
 									<td>
 										<div class="price-wrap">
 											<var class="price">{{ cart_item.sub_total }} €</var>
-											<small class="text-muted">{{ cart_item.product.price }} € each </small>
+											{% if cart_item.product.discounted_price %}
+											<small class="text-muted">{{ cart_item.product.discounted_price }} € each</small>
+											{% else %}
+											<small class="text-muted">{{ cart_item.product.price }} € each</small>
+											{% endif %}
 										</div>
 									</td>
 								</tr>

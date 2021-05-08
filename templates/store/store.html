@@ -48,11 +48,7 @@
 						<div class="col-md-4">
 							<figure class="card card-product-grid">
 								<div class="img-wrap">
-									{% if product.image %}
-									<a href="{{ product.get_url }}"><img src="{{ product.image.url }}"></a>
-									{% else %}
-									<a href="{{ product.get_url }}"><img src="{% static 'img/default-product.png' %}"></a>
-									{% endif %}
+									<a href="{{ product.get_url }}"><img src="{{ product.image.url }}" alt="Product Image"></a>
 								</div>
 								<figcaption class="info-wrap">
 									<div class="fix-height">
@@ -68,12 +64,16 @@
 										<div class="rating-start">
 											<div class="rating-star">
 												<span>
+													{% if product.count_review == 0 %}
+													<span><small class="text-warning">No review yet</small></span>
+													{% else %}
 													<i class="fa fa-star{% if product.average_review < 0.5 %}-o{% elif product.average_review >= 0.5 and product.average_review < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
 													<i class="fa fa-star{% if product.average_review < 1.5 %}-o{% elif product.average_review >= 1.5 and product.average_review < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
 													<i class="fa fa-star{% if product.average_review < 2.5 %}-o{% elif product.average_review >= 2.5 and product.average_review < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
 													<i class="fa fa-star{% if product.average_review < 3.5 %}-o{% elif product.average_review >= 3.5 and product.average_review < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
 													<i class="fa fa-star{% if product.average_review < 4.5 %}-o{% elif product.average_review >= 4.5 and product.average_review < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
-													<span>{{ product.count_review }} reviews</span>
+													<span>{{ product.count_review }} review{{ product.count_review|pluralize }}.</span>
+													{% endif %}
 												</span>
 											</div>
 										</div>
