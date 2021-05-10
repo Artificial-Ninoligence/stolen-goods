@@ -3,8 +3,8 @@
 ### E-Commerce Web Application built with Django Web Framwework
 ## Project setup:
 
-* Download my repository
-* Create a venv
+* Download the repository
+* Create a virtual env
 * Install modules "pip install -r requirements.txt"
 * Assign the credentials listed in the .env-secrets file
 * Create database:
