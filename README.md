@@ -1,7 +1,7 @@
 [![Django Project CI/CD](https://github.com/Artificial-Ninoligence/stolen-goods/actions/workflows/ci-cd.yml/badge.svg?branch=main&event=push)](https://github.com/Artificial-Ninoligence/stolen-goods/actions/workflows/ci-cd.yml)
 
 #  **Stolen Goods** | https://www.stolengoods.wtf
-![alt sg-banner](docs-assets/doc-stolengoods-banner.png)
+![alt sg-banner](docs/doc-stolengoods-banner.png)
 
 # 1. Project Details:
 ## University:
