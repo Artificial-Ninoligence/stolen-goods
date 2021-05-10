@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>916beee5-2dd1-4442-99bd-8fe09583bbdf.SCHEMA:postgres.public</OriginalElement>
+  <nodes>
+    <node x="908.6676829268292" y="425.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.category_category</node>
+    <node x="1241.5884146341461" y="403.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.django_admin_log</node>
+    <node x="1536.5884146341461" y="469.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.auth_group</node>
+    <node x="940.1676829268292" y="1367.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.product_productgallery</node>
+    <node x="206.91768292682923" y="1290.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.transactions_orderproduct</node>
+    <node x="0.0" y="720.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.transactions_order</node>
+    <node x="157.5" y="414.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.transactions_payment</node>
+    <node x="1548.875" y="99.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.django_content_type</node>
+    <node x="1313.5" y="929.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.carts_cart</node>
+    <node x="0.0" y="1589.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.admin_honeypot_loginattempt</node>
+    <node x="515.9176829268292" y="1290.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.product_reviewrating</node>
+    <node x="451.1676829268292" y="0.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.accounts_customuser</node>
+    <node x="612.0" y="1589.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.django_session</node>
+    <node x="906.1676829268292" y="830.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.product_product</node>
+    <node x="599.6676829268292" y="348.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.accounts_userprofile</node>
+    <node x="1186.731707317073" y="1334.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.carts_cartitem</node>
+    <node x="1618.0" y="929.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.auth_group_permissions</node>
+    <node x="321.0" y="1589.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.django_migrations</node>
+    <node x="1709.5884146341461" y="447.0">916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.auth_permission</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.transactions_orderproduct" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.accounts_customuser" relationship="REFERENCES">
+      <point x="36.125" y="-127.0" />
+      <point x="387.54268292682923" y="1264.0" />
+      <point x="451.99999999999994" y="1264.0" />
+      <point x="451.99999999999994" y="323.0" />
+      <point x="589.1676829268292" y="323.0" />
+      <point x="0.0" y="149.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.product_reviewrating" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.product_product" relationship="REFERENCES">
+      <point x="73.25" y="-127.0" />
+      <point x="735.6676829268292" y="1264.0" />
+      <point x="1050.6676829268292" y="1264.0" />
+      <point x="0.0" y="149.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.django_admin_log" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.accounts_customuser" relationship="REFERENCES">
+      <point x="-68.75" y="-105.0" />
+      <point x="1310.3384146341461" y="323.0" />
+      <point x="589.1676829268292" y="323.0" />
+      <point x="0.0" y="149.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.auth_group_permissions" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.auth_group" relationship="REFERENCES">
+      <point x="-57.5" y="-50.0" />
+      <point x="1675.5" y="694.0" />
+      <point x="1613.0884146341461" y="694.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.transactions_payment" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.accounts_customuser" relationship="REFERENCES">
+      <point x="0.0" y="-94.0" />
+      <point x="299.5" y="323.0" />
+      <point x="589.1676829268292" y="323.0" />
+      <point x="0.0" y="149.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.carts_cartitem" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.accounts_customuser" relationship="REFERENCES">
+      <point x="0.0" y="-83.0" />
+      <point x="1261.731707317073" y="1264.0" />
+      <point x="1231.0884146341461" y="1264.0" />
+      <point x="1231.0884146341461" y="323.0" />
+      <point x="589.1676829268292" y="323.0" />
+      <point x="0.0" y="149.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.auth_permission" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.django_content_type" relationship="REFERENCES">
+      <point x="0.0" y="-61.0" />
+      <point x="1804.5884146341461" y="323.0" />
+      <point x="1650.375" y="323.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.transactions_orderproduct" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.product_product" relationship="REFERENCES">
+      <point x="108.375" y="-127.0" />
+      <point x="459.79268292682923" y="1264.0" />
+      <point x="1050.6676829268292" y="1264.0" />
+      <point x="0.0" y="149.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.carts_cartitem" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.carts_cart" relationship="REFERENCES">
+      <point x="50.0" y="-83.0" />
+      <point x="1311.731707317073" y="1264.0" />
+      <point x="1451.0" y="1264.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.carts_cartitem" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.product_product" relationship="REFERENCES">
+      <point x="-50.0" y="-83.0" />
+      <point x="1211.731707317073" y="1264.0" />
+      <point x="1050.6676829268292" y="1264.0" />
+      <point x="0.0" y="149.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.transactions_orderproduct" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.transactions_order" relationship="REFERENCES">
+      <point x="-108.375" y="-127.0" />
+      <point x="243.04268292682923" y="1264.0" />
+      <point x="144.5" y="1264.0" />
+      <point x="0.0" y="259.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.accounts_userprofile" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.accounts_customuser" relationship="REFERENCES">
+      <point x="0.0" y="-160.0" />
+      <point x="744.1676829268292" y="323.0" />
+      <point x="589.1676829268292" y="323.0" />
+      <point x="0.0" y="149.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.transactions_orderproduct" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.transactions_payment" relationship="REFERENCES">
+      <point x="-36.125" y="-127.0" />
+      <point x="315.29268292682923" y="1264.0" />
+      <point x="299.5" y="1264.0" />
+      <point x="0.0" y="94.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.product_productgallery" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.product_product" relationship="REFERENCES">
+      <point x="0.0" y="-50.0" />
+      <point x="0.0" y="149.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.transactions_order" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.transactions_payment" relationship="REFERENCES">
+      <point x="72.25" y="-259.0" />
+      <point x="216.75" y="694.0" />
+      <point x="299.5" y="694.0" />
+      <point x="0.0" y="94.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.django_admin_log" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.django_content_type" relationship="REFERENCES">
+      <point x="68.75" y="-105.0" />
+      <point x="1447.8384146341461" y="323.0" />
+      <point x="1650.375" y="323.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.transactions_order" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.accounts_customuser" relationship="REFERENCES">
+      <point x="-72.25" y="-259.0" />
+      <point x="72.25" y="323.0" />
+      <point x="589.1676829268292" y="323.0" />
+      <point x="0.0" y="149.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.product_reviewrating" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.accounts_customuser" relationship="REFERENCES">
+      <point x="-73.25" y="-127.0" />
+      <point x="0.0" y="149.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.product_product" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.category_category" relationship="REFERENCES">
+      <point x="0.0" y="-149.0" />
+      <point x="0.0" y="83.0" />
+    </edge>
+    <edge source="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.auth_group_permissions" target="916beee5-2dd1-4442-99bd-8fe09583bbdf.TABLE:postgres.public.auth_permission" relationship="REFERENCES">
+      <point x="57.5" y="-50.0" />
+      <point x="1790.5" y="694.0" />
+      <point x="1804.5884146341461" y="694.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.4307178631051753" showDependencies="false" x="903.5658914728681" y="780.5406976744187" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Comments</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
