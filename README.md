@@ -14,12 +14,14 @@
 * Modules:
   * SE01: Software Development Basic
   * SE19: Web Technology Basic
+
 * Module Coordinator: Prof. Dr. Peter Ruppel
 * Module:
   * SE05: Relational Database
+
 * Module Coordinator: Prof. Dr. Ulrich von Zadow
 * Module:
-  * E10: Automated SOftware Testing
+  * E10: Automated Software Testing
 
 ## Technical Details:
 * Programming Language:
@@ -59,15 +61,22 @@
 # 2. Project Intro
 "Stolen Goods" is a fun parody project simulating an international e-commerce that sells items from criminals to collectors around the world. Even though this is only a parody, this web application has a fully functioning features like any other e-commerce platform.
 
-# 3. Database
-Django uses Object Relational Mapper that can be connected to any database. This project uses SQLite3 during the development stage for its simple fungtionality purpose and PostgreSQL for its scalability in production. PostgreSQL is used both in localhost with DataGrip and online with AWS RDS. This project has 11 relational database tables excluding the default django classes (i.e. auth_permission, auth_group, etc.).
+# 3. MVT Software Pattern
+Django is a free, open-source, and high-level Python web framework that encourages rapid development and clean pragmatic design and follows the MTV (Model - Template - View) software architectural patterns. Django consists of an ORM (Object-Relational Mapper) that connects data models defined as Python classes and the database, a system to process HTTP requests with a web templating system, and a regular-expression-based URL dispatcher.
+![alt MVT Software](docs/MVT-Software-Diagram.png)
 
-# 4. Project Objective
+The official documentation of Django can be found here:
+
+https://www.djangoproject.com/start/overview/
+# 4. Django ORM
+Django uses Object-Relational Mapper that can be connected to any database. This project uses SQLite3 during the development stage for its simple fungtionality purpose and PostgreSQL for its scalability in production. PostgreSQL is used both in localhost with DataGrip and online with AWS RDS. This project has 11 relational database tables excluding the default django classes (i.e. auth_permission, auth_group, etc.).
+
+# 5. Project Objective
 * The main objective of this project is to implement the knowledge in web development and software engineering gained in spring semester 2021 by programming a fully-functional software that runs a web application.
 
 * My private goal is to prove the superiority of Python over other programming languages by creating a web application only with a Python Web Framework: Django.
 
-# 3 Project Setup
+# 6. Project Setup
 * Clone / Download the repository
 
 * Make sure you have python 8.x or higher, othwerwise [Upgrade Your Python](https://www.python.org/downloads/) or run "brew upgrade python" on your terminal
@@ -90,7 +99,7 @@ Django uses Object Relational Mapper that can be connected to any database. This
 
 * To login as an admin go to 'http://127.0.0.1:8000/stolen-goods-admin/'
 
-# 4. Relational Database
+# 7. Relational Database
 Everytime we add or change the database, the django application will not be automatically connected. This is why we always need to re-run:
 * "python manage.py makemigrations"
 
@@ -98,7 +107,7 @@ Everytime we add or change the database, the django application will not be auto
 
 * "python manage.py createsuperuser"
 
-# 4a. Setup
+# 7a. Setup
 For the database setup, I assumed that you atleast have Postgres.app, if not [Download here](https://postgresapp.com/downloads.html)
 
 * Activate your postgres service on postgres app or run "pg_start"
@@ -124,7 +133,7 @@ For the database setup, I assumed that you atleast have Postgres.app, if not [Do
 * ## PostgreSQL (AWS RDS):
   * Signin to your [AWS](https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fconsole.aws.amazon.com%2Fconsole%2Fhome%3Ffromtb%3Dtrue%26hashArgs%3D%2523%26isauthcode%3Dtrue%26nc2%3Dh_ct%26src%3Dheader-signin%26state%3DhashArgsFromTB_us-east-1_89ab805abe155024&client_id=arn%3Aaws%3Asignin%3A%3A%3Aconsole%2Fcanvas&forceMobileApp=0&code_challenge=3yzEx5_jmEbzHM1BYCd2CjiMWXVN0KDTdhVDC3KaBfU&code_challenge_method=SHA-256) or [Signup](https://portal.aws.amazon.com/billing/signup?refid=em_127222&redirect_url=https%3A%2F%2Faws.amazon.com%2Fregistration-confirmation#/start)
 
-  * Create Database, choose PostgreSQL
+  * Create Database, choose PostgreSQL 12.6
 
   * Copy your "Endpoint" under "Connectivity & Security"
 
@@ -141,7 +150,7 @@ For the database setup, I assumed that you atleast have Postgres.app, if not [Do
 ![alt postgresql aws rds setup](docs/database/PostgreSQL-RDS-Setup.png)
 ![alt postgresql tables and schema](docs/database/PostgreSQL-Tables.png)
 
-# 4b. Entity-Relationship Model
+# 7b. Entity-Relationship Model
 ## Relationships:
 * One-to-One:
   * (One) User => (One) UserProfile
@@ -195,7 +204,7 @@ For the database setup, I assumed that you atleast have Postgres.app, if not [Do
 
 ![alt sqlite3 ERM](docs/database/ERM-SG-SQLite3.png)
 
-# 4c. Database Queries used in this Project
+# 7c. Database Queries used in this Project
 ## INSERT TABLE table_name();
 * Create a python class in your_app_name/models.py
 
@@ -234,7 +243,7 @@ For the database setup, I assumed that you atleast have Postgres.app, if not [Do
 
 * user.save()
 
-# 5. CI / CD
+# 8. CI / CD
 The CI/CD implemented in this project is using the GitHub Actions which is written in YAML syntax in a .yaml or .yml file and saved in .github/workflows directory.
 
 ## Continuous Integration (CI):
@@ -253,7 +262,7 @@ CI is the practice of automating the integration of code changes from multiple c
 CD is a strategy for software releases wherein any code commit that passes the automated testing phase is automatically released into the production environment, making changes that are visible to the software's users. 
 
 * The job for the CD in this project is created to make sure that only codes which have passed the Pytest-Cov will be pushed to Heroku to be deployed into the production stage
-# 6. Paypal Sandbox
+# 9. Paypal Sandbox
 For demo purpose, this project uses "Paypal Sandbox Integration" with Javascript. To process the purchase. please use this credentials:
 
 * Paypal Sandbox Account: maxi.musterfrau@gmail.com
