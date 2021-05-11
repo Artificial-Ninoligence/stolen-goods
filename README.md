@@ -7,7 +7,7 @@
 ## University:
 * Code University of Applied Sciences
 ## Semester:
-* Spring Semester 2021
+* Semester 2 / Spring Semester 2021
 
 ## Module Details:
 * Module Coordinator: Dr. Adam Roe
@@ -28,7 +28,8 @@
   * Python 3.9.2
   * Javascript
   
-* NOT Programming Language:
+* Templating System:
+  * Jinja 2
   * HTML
   * CSS
 
@@ -49,10 +50,11 @@
   * Production Stage:
     * AWS RDS PostgreSQL 12.6
 
-* Static Files Storage System:
+* Static File Storage System:
   * AWS S3 Bucket
 
-* Web Hosting Platform:
+* Hosting:
+  * NameCheap
   * Heroku
 
 * Paypal Integration:
@@ -62,8 +64,9 @@
 "Stolen Goods" is a fun parody project simulating an international e-commerce that sells items from criminals to collectors around the world. Even though this is only a parody, this web application has a fully functioning features like any other e-commerce platform.
 
 # 3. MVT Software Pattern
-Django is a free, open-source, and high-level Python web framework that encourages rapid development and clean pragmatic design and follows the MTV (Model - Template - View) software architectural patterns. Django consists of an ORM (Object-Relational Mapper) that connects data models defined as Python classes and the database, a system to process HTTP requests with a web templating system, and a regular-expression-based URL dispatcher.
-![alt MVT Software](docs/MVT-Software-Diagram.png)
+Django is a free, open-source, and high-level Python web framework that encourages rapid development and clean pragmatic design and follows the MTV (Model - Template - View) software architectural patterns. Django consists of an ORM (Object-Relational Mapper) that connects data models defined as Python classes and the database, a system to process HTTP requests with a web templating system, and a RegEx-based URL dispatcher.
+
+![alt MVT Software](docs/MVT-Software-Pattern.png)
 
 The official documentation of Django can be found here:
 
@@ -151,9 +154,45 @@ For the database setup, I assumed that you atleast have Postgres.app, if not [Do
 ![alt postgresql tables and schema](docs/database/PostgreSQL-Tables.png)
 
 # 7b. Entity-Relationship Model
+## Database Tables based on each of my Django App's model:
+* ### Accounts App (accounts/models.py):
+  * (ORM) Class CustomUser <=> (Relational Database Table) accounts_customuser
+
+  * (ORM) Class UserProfile <=> (Relational Database Table) accounts_userprofile
+
+* ### Carts App (carts/models.py):
+  * (ORM) Class Cart <=> (Relational Database Table) carts_cart
+
+  * (ORM) Class CartItem <=> (Relational Database Table) carts_cartitem
+
+* ### Category App (category/models.py):
+  * (ORM) Class Category <=> (Relational Database Table) category_category
+
+* ### Product App (product/models.py):
+  * (ORM) Class Product <=> (Relational Database Table) product_product
+
+  * (ORM) Class ReviewRating <=> (Relational Database Table) product_reviewrating
+
+  * (ORM) Class ProductGallery <=> (Relational Database Table) product_productgallery
+
+* ### Transactions App (transactions/models.py):
+  * (ORM) Class Payment <=> (Relational Database Table) transactions_payment
+
+  * (ORM) Class Order <=> (Relational Database Table) transactions_order
+
+  * (ORM) Class OrderProduct <=> (Relational Database Table) transactions_orderproduct
+
+## Django also provides 2 pre-made classes for using SQLite3 which create 2 relational database tables:
+* (ORM) Class SQLiteSequence <=> (Relational Database Table) sqlite_sequence
+
+* (ORM) Class SQLiteMaster <=> (Relational Database Table) sqlite_master
+
+## For upgrading this project's admin login security, this project uses a plugin called "django-admin-honeypot" that creates 1 relational database table:
+* (ORM) Class AdminHoneypotLoginAttempt <=> (Relational Database Table) admin_honeypot_login_attempt
+
 ## Relationships:
 * One-to-One:
-  * (One) User => (One) UserProfile
+  * (One) CustomUser => (One) UserProfile
 
 * One-to-Many:
   * (One) Category => (Many) Product
@@ -205,17 +244,21 @@ For the database setup, I assumed that you atleast have Postgres.app, if not [Do
 ![alt sqlite3 ERM](docs/database/ERM-SG-SQLite3.png)
 
 # 7c. Database Queries used in this Project
-## INSERT TABLE table_name();
-* Create a python class in your_app_name/models.py
+## CREATE TABLE table_name(table_column);
+* Create a python class in your_app_name/models.py:
+  * class TableName(models.Model)
 
 * On the terminal run:
   * python manage.py makemigrations
+
   * python manage.py migrate
+#
 
-## INSERT INTO table_name(parameter); VALUES(argument);
-* user = CustomUser.objects.create_user(email="admin@stolengoods.wtf", username="admin", pasword="admin")
+## INSERT INTO accounts_customuser(email, username, password) VALUES("admin@stolengoods.wtf", "admin", "admin123");
+* custom_user = CustomUser.objects.create_user(email="admin@stolengoods.wtf", username="admin", pasword="admin123")
+#
 
-## INSERT INTO user_profiles(id, first_name, last_name, user_id); VALUES(1, "nino", "lindenberg", 1);
+## INSERT INTO accounts_user_profile(id, first_name, last_name, user_id) VALUES(1, "nino", "lindenberg", 1);
 * current_user = request.user
 
 * profile = UserProfile()
@@ -223,25 +266,35 @@ For the database setup, I assumed that you atleast have Postgres.app, if not [Do
 * profile.user_id = user.id
 
 * profile.save()
+#
 
 ## SELECT * FROM table_name;
 * products = Product.objects.all()
 
-## SELECT * FROM table_a INNER JOIN ON table_a.table_b_id = table_b.id;
+## SELECT * FROM carts_cartitem INNER JOIN ON carts_cartitem.acounts_customuser_id = accounts_customuser.id;
 * current_user = request.user
 
 * cart_items_from_current_user = CartItem.objects.filter(user=current_user)
+#
 
-## SELECT * FROM table_name WHERE boolean_column='True' ORDER BY id;
+## SELECT * FROM product_product WHERE is_availabel='True' ORDER BY id;
 * products = Product.objects.all().filter(is_available=True).order_by('id')
+#
 
-## SELECT username FROM custom_users WHERE username = auth_user.username;
-## UPDATE custom_user SET password = "new password";
+## SELECT username FROM accounts_customuser WHERE username = auth_user.username;
+## UPDATE accounts_customuser SET password = "new password";
 * user = User.objects.get(username__exact=request.user.username)
 
 * user.set_password("new_password")
 
 * user.save()
+
+# 7d. Index-ing in Django:
+* Index is declared inside the meta class in each python class in models.py
+
+* Syntax: ordering = ("your index",)
+
+* Adding a "-" before the "your index" inside the tupple will access the row from the database table with that particular index (column) in the descending order
 
 # 8. CI / CD
 The CI/CD implemented in this project is using the GitHub Actions which is written in YAML syntax in a .yaml or .yml file and saved in .github/workflows directory.
@@ -262,11 +315,62 @@ CI is the practice of automating the integration of code changes from multiple c
 CD is a strategy for software releases wherein any code commit that passes the automated testing phase is automatically released into the production environment, making changes that are visible to the software's users. 
 
 * The job for the CD in this project is created to make sure that only codes which have passed the Pytest-Cov will be pushed to Heroku to be deployed into the production stage
-# 9. Paypal Sandbox
+
+# 9. Hosting
+This project uses Heroku (PaaS: Platform as a Service) which is a cloud-based, scalable server solution that allows developers to easily manage the deployment of their web applications. The name "stolengoods.wtf" and a validated PositiveSSL certificate is bought and issued through NameCheap.
+
+# 10. Paypal Integration
 For demo purpose, this project uses "Paypal Sandbox Integration" with Javascript. To process the purchase. please use this credentials:
 
 * Paypal Sandbox Account: maxi.musterfrau@gmail.com
 
 * Paypal Sandbox Password: yxcasdqwe123!
 
-## Thank you for your time and interest!
+# 11. Learning Resources
+* Udemy:
+  * [Python & Django Full Stack Web Developer Bootcamp](https://www.udemy.com/share/101WwECUYfd1ZVQXg=/)
+  * [The Complete SQL Bootcamp 2021: Go From Zero to Hero](https://www.udemy.com/share/101WsUCUYfd1ZVQXg=/)
+  * [Automated Software Testing with Python](https://www.udemy.com/share/1021gqCUYfd1ZVQXg=/)
+  * [Real World Python Test Automation with Pytest (Django App)](https://www.udemy.com/share/104wzCCUYfd1ZVQXg=/)
+  * [Docker & Kubernetes the Complete Guide](https://www.udemy.com/share/101WReCUYfd1ZVQXg=/)
+
+* Coursera:
+  * [Django for Everybody Specialization](https://www.coursera.org/specializations/django?skipBrowseRedirect=true)
+  * [PostgreSQL for Everybody Specialization](https://www.coursera.org/specializations/postgresql-for-everybody)
+
+* Django Official Documentation Website:
+  * https://www.djangoproject.com/start/overview/
+
+* Django Rest Framework (DRF):
+  * https://www.django-rest-framework.org/
+
+* Stackoverflow:
+  * https://stackoverflow.com/
+
+* BUGS from all of the students from "Feedback Group 3" and "Feedback Group 5":
+
+# 12. Last Words:
+"Thank you for all the experiences and learning opportunities in this spring semester 2021, I learned a lot from each and everyone of you. I wish you all the best for your personal, academic, and professional life!"
+
+## Special Thank's to:
+* Foundations 2021 - Teachers Team:
+  * Dr. Adam Roe
+
+  * Paula Dettman
+
+  * Humam Abo Alraja
+
+  * Fabian Volkers
+
+* Database:
+  * Prof. Dr. Peter Ruppel
+
+* Automated Software Testing:
+  * Prof. Dr. Ulrich von Zadow
+
+  * Jannis Jorre
+
+* Feedback Group 3 & Feedback Group 5 (LU Foundations 2021):
+  "Both "Alle gute Dinge sind 3" and "High 5", you guys and girls are awesome!"
+
+# <h1>"Irian Jaya, Cendrawasih.. Sekian dari saya, Terima Kasih!!"</h1>
