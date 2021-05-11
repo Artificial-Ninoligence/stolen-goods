@@ -68,9 +68,6 @@ Django is a free, open-source, and high-level Python web framework that encourag
 
 ![alt MVT Software](docs/MVT-Software-Pattern.png)
 
-The official documentation of Django can be found here:
-
-https://www.djangoproject.com/start/overview/
 # 4. Django ORM
 Django uses Object-Relational Mapper that can be connected to any database. This project uses SQLite3 during the development stage for its simple fungtionality purpose and PostgreSQL for its scalability in production. PostgreSQL is used both in localhost with DataGrip and online with AWS RDS. This project has 11 relational database tables excluding the default django classes (i.e. auth_permission, auth_group, etc.).
 
@@ -154,7 +151,7 @@ For the database setup, I assumed that you atleast have Postgres.app, if not [Do
 ![alt postgresql tables and schema](docs/database/PostgreSQL-Tables.png)
 
 # 7b. Entity-Relationship Model
-## Database Tables based on each of my Django App's model:
+## 11 Database Tables based on 5 Django App's models:
 * ### Accounts App (accounts/models.py):
   * (ORM) Class CustomUser <=> (Relational Database Table) accounts_customuser
 
@@ -244,50 +241,72 @@ For the database setup, I assumed that you atleast have Postgres.app, if not [Do
 ![alt sqlite3 ERM](docs/database/ERM-SG-SQLite3.png)
 
 # 7c. Database Queries used in this Project
-## CREATE TABLE table_name(table_column);
-* Create a python class in your_app_name/models.py:
-  * class TableName(models.Model)
+## SQL Query 1:
+  * CREATE TABLE table_name(table_column);
+  
+  * Query with python:
+    * Create a python class in your_app_name/models.py:
+      * class TableName(models.Model)
 
-* On the terminal run:
-  * python manage.py makemigrations
+    * On the terminal run:
+      * python manage.py makemigrations
 
-  * python manage.py migrate
+      * python manage.py migrate
 #
 
-## INSERT INTO accounts_customuser(email, username, password) VALUES("admin@stolengoods.wtf", "admin", "admin123");
-* custom_user = CustomUser.objects.create_user(email="admin@stolengoods.wtf", username="admin", pasword="admin123")
+## SQL Query 2:
+  * INSERT INTO accounts_customuser(email, username, password) VALUES("admin@stolengoods.wtf", "admin", "admin123");
+  
+  * Query with python:
+    * custom_user = CustomUser.objects.create_user(email="admin@stolengoods.wtf", username="admin", pasword="admin123")
 #
 
-## INSERT INTO accounts_user_profile(id, first_name, last_name, user_id) VALUES(1, "nino", "lindenberg", 1);
-* current_user = request.user
+## SQL Query 3:
+* INSERT INTO accounts_user_profile(id, first_name, last_name, user_id) VALUES(1, "nino", "lindenberg", 1);
 
-* profile = UserProfile()
+* Query with python:  
+  * current_user = request.user
 
-* profile.user_id = user.id
+  * profile = UserProfile()
 
-* profile.save()
+  * profile.user_id = user.id
+
+  * profile.save()
 #
 
-## SELECT * FROM table_name;
-* products = Product.objects.all()
+## SQL Query 4:
+* SELECT * FROM table_name;
 
-## SELECT * FROM carts_cartitem INNER JOIN ON carts_cartitem.acounts_customuser_id = accounts_customuser.id;
-* current_user = request.user
-
-* cart_items_from_current_user = CartItem.objects.filter(user=current_user)
+* Query with python:
+  * products = Product.objects.all()
 #
 
-## SELECT * FROM product_product WHERE is_availabel='True' ORDER BY id;
-* products = Product.objects.all().filter(is_available=True).order_by('id')
+## SQL Query 5:
+  * SELECT * FROM carts_cartitem INNER JOIN ON carts_cartitem.acounts_customuser_id = accounts_customuser.id;
+
+  * Query with python:
+    * current_user = request.user
+
+    * cart_items_from_current_user = CartItem.objects.filter(user=current_user)
 #
 
-## SELECT username FROM accounts_customuser WHERE username = auth_user.username;
-## UPDATE accounts_customuser SET password = "new password";
-* user = User.objects.get(username__exact=request.user.username)
+## SQL Query 6:
+* SELECT * FROM product_product WHERE is_availabel='True' ORDER BY id;
 
-* user.set_password("new_password")
+* Query with python:
+  * products = Product.objects.all().filter(is_available=True).order_by('id')
+#
 
-* user.save()
+## SQL Query 7:
+  * SELECT username FROM accounts_customuser WHERE username = auth_user.username;
+  * UPDATE accounts_customuser SET password = "new password";
+
+  * Query with python:
+    * user = User.objects.get(username__exact=request.user.username)
+
+    * user.set_password("new_password")
+
+    * user.save()
 
 # 7d. Index-ing in Django:
 * Index is declared inside the meta class in each python class in models.py
