@@ -392,4 +392,6 @@ For demo purpose, this project uses "Paypal Sandbox Integration" with Javascript
 * Feedback Group 3 & Feedback Group 5 (LU Foundations 2021):
   "Both "Alle gute Dinge sind 3" and "High 5", you guys and girls are awesome!"
 
-# <h1>"Irian Jaya, Cendrawasih.. Sekian dari saya, Terima Kasih!!"</h1>
+# <h1>"Irian Jaya, Cendrawasih..</h1>
+
+# Sekian dari saya, Terima Kasih!!"
