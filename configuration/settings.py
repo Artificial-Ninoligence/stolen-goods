@@ -125,7 +125,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'configuration.wsgi.application'
 
 
-# Database
+# Database in production stage: AWS RDS PostgreSQL 12.6
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
     'default': {
@@ -137,6 +137,14 @@ DATABASES = {
         'PORT': config('POSTGRES_PORT'),
     }
 }
+
+# Database in development stage: SQLite3
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+# }
 
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
