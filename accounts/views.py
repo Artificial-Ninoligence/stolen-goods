@@ -39,7 +39,7 @@ def register(request):
                 email=email,
                 username=username,
                 password=password
-                )
+            )
             user.save()
 
             # Create a user profile
@@ -60,7 +60,7 @@ def register(request):
             send_email = EmailMessage(mail_subject, message, to=[to_email])
             send_email.send()
 
-            return redirect('/accounts/login/?command=verification&email='+email)
+            return redirect('/accounts/login/?command=verification&email=' + email)
     else:
         form = RegistrationForm()
 

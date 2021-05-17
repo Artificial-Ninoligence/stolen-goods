@@ -9,7 +9,7 @@ def image_storage_path(instance, filename):
     return "profile_pictures/UserID_{instance}/{filename}/".format(
         instance=instance.user.id,
         filename=filename
-        )
+    )
 
 
 class MyAccountManager(BaseUserManager):
@@ -97,7 +97,7 @@ class UserProfile(models.Model):
         verbose_name='Profile Picture',
         blank=True,
         null=True
-        )
+    )
     postal_code = models.CharField(verbose_name='Postal Code', max_length=255, blank=True, null=True)
     city = models.CharField(verbose_name='City', max_length=255, blank=True, null=True)
     state = models.CharField(verbose_name='State', max_length=255, blank=True, null=True)

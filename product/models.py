@@ -18,7 +18,7 @@ class Product(models.Model):
         decimal_places=2,
         blank=True,
         null=True
-        )
+    )
     stock = models.IntegerField(default=1)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(
@@ -26,7 +26,7 @@ class Product(models.Model):
         default='product_images/main_photo/default-product.png',
         blank=True,
         null=True
-        )
+    )
 
     is_available = models.BooleanField(default=True)
 

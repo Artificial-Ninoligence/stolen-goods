@@ -11,7 +11,7 @@ class TestCategory(TestCase):
             slug='jewellery',
             description='Oldest artefact used to show status',
             image='jewellery.png',
-            )
+        )
 
     def test_category_model_entry(self):
 

@@ -17,4 +17,4 @@ class OrderForm(forms.ModelForm):
             'country',
             'state',
             'order_note'
-            ]
+        ]

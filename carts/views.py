@@ -37,7 +37,7 @@ def add_cart(request, product_id):
                     user=current_user,
                     quantity=1,
                     cart=cart,
-                    )
+                )
                 cart_item.save()
 
         return redirect('cart')
@@ -63,7 +63,7 @@ def add_cart(request, product_id):
                     product=product,
                     quantity=1,
                     cart=cart,
-                    )
+                )
                 cart_item.save()
 
         return redirect('cart')
@@ -132,7 +132,7 @@ def cart(request, total=0, quantity=0, cart_items=None):
                 total += (cart_item.product.price * cart_item.quantity)
                 quantity += cart_item.quantity
 
-        tax = (2 * total)/100
+        tax = (2 * total) / 100
         grand_total = total + tax
 
     except ObjectDoesNotExist:
@@ -172,7 +172,7 @@ def checkout(request, total=0, quantity=0, cart_items=None):
                 total += (cart_item.product.price * cart_item.quantity)
                 quantity += cart_item.quantity
 
-        tax = (2 * total)/100
+        tax = (2 * total) / 100
         grand_total = total + tax
 
     except ObjectDoesNotExist:

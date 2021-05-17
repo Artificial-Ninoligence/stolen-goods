@@ -4,10 +4,12 @@ from .models import CustomUser, UserProfile
 
 class RegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'id': 'password',
         'placeholder': 'Enter Password',
         'class': 'form-control',
     }))
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'id': 'confirm_password',
         'placeholder': 'Confirm Password'
     }))
 
@@ -27,9 +29,18 @@ class RegistrationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
-        self.fields['first_name'].widget.attrs['placeholder'] = 'Enter First Name'
-        self.fields['last_name'].widget.attrs['placeholder'] = 'Enter last Name'
-        self.fields['email'].widget.attrs['placeholder'] = 'Enter Email Address'
+        self.fields['first_name'].widget.attrs = {
+            'id': 'first_name',
+            'placeholder': 'Enter First Name'
+        }
+        self.fields['last_name'].widget.attrs = {
+            'id': 'last_name',
+            'placeholder': 'Enter last Name'
+        }
+        self.fields['email'].widget.attrs = {
+            'id': 'email',
+            'placeholder': 'Enter Email Address'
+        }
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
 
@@ -51,7 +62,7 @@ class UserProfileForm(forms.ModelForm):
         required=False,
         error_messages={'invalid': ("Image files only")},
         widget=forms.FileInput
-        )
+    )
 
     class Meta:
         model = UserProfile
@@ -65,7 +76,7 @@ class UserProfileForm(forms.ModelForm):
             'state',
             'country',
             'profile_picture'
-            )
+        )
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)

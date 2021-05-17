@@ -26,7 +26,7 @@ class OrderAdmin(admin.ModelAdmin):
             'status',
             'tax',
             'is_ordered',
-            )}),
+        )}),
         ('Address Details', {'fields': (
             'address_line_1',
             'address_line_2',
@@ -35,7 +35,7 @@ class OrderAdmin(admin.ModelAdmin):
             'city',
             'state',
             'country',
-            )}),
+        )}),
     )
 
 
