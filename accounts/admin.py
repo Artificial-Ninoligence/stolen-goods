@@ -15,7 +15,7 @@ class CustomUserAdmin(UserAdmin):
         'is_active',
         'last_login',
         'date_joined',
-        )
+    )
 
     list_display_links = ('email', 'first_name', 'last_name')
     readonly_fields = ('last_login', 'date_joined')
@@ -45,7 +45,7 @@ class UserProfileAdmin(admin.ModelAdmin):
         'city',
         'state',
         'country',
-        )
+    )
     list_filter = ('user', 'phone_number', 'country',)
     fieldsets = (
         (None, {'classes': ('wide', 'extrapretty'),
@@ -58,7 +58,7 @@ class UserProfileAdmin(admin.ModelAdmin):
             'city',
             'state',
             'country'
-            )}),
+        )}),
         ('Media', {'fields': ('profile_picture',)}),
     )
 

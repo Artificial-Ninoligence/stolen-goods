@@ -89,7 +89,7 @@ def search(request):
                 Q(category__name__icontains=keyword) |
                 Q(name__icontains=keyword) |
                 Q(category__description__icontains=keyword)
-                )
+            )
             product_count = products.count()
     context = {
         'products': products,

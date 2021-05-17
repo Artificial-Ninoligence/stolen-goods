@@ -31,7 +31,7 @@ class ProductAdmin(admin.ModelAdmin):
         'is_available',
         'date_created',
         'date_updated'
-        ]
+    ]
     list_filter = ['is_available', 'date_created', 'stock', 'price']
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
