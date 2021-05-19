@@ -131,11 +131,11 @@ if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config('POSTGRES_LOCAL_DB'),
-            'USER': config('POSTGRES_LOCAL_USER'),
-            'PASSWORD': config('POSTGRES_LOCAL_PASSWORD'),
-            'HOST': config('POSTGRES_LOCAL_HOST'),
-            'PORT': config('POSTGRES_LOCAL_PORT'),
+            'NAME': config('POSTGRES_LOCAL_DB', default=config('POSTGRES_DB')),
+            'USER': config('POSTGRES_LOCAL_USER', default=config('POSTGRES_USER')),
+            'PASSWORD': config('POSTGRES_LOCAL_PASSWORD', default=config('POSTGRES_PASSWORD')),
+            'HOST': config('POSTGRES_LOCAL_HOST', default=config('POSTGRES_HOST')),
+            'PORT': config('POSTGRES_LOCAL_PORT', default=config('POSTGRES_PORT')),
         },
     }
 else:
