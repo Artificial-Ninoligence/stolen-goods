@@ -167,11 +167,13 @@ def edit_profile(request):
         'profile_form': profile_form,
         'user_profile': user_profile,
     }
+
     return render(request, 'accounts/edit_profile.html', context)
 
 
 @login_required(login_url='login')
 def change_password(request):
+
     if request.method == 'POST':
         current_password = request.POST['current_password']
         new_password = request.POST['new_password']
@@ -264,9 +266,9 @@ def forgot_password(request):
         else:
             messages.error(request, 'Account does not exist!')
 
-            return redirect('forgotPassword')
+            return redirect('forgot_password')
 
-    return render(request, 'accounts/forgotPassword.html')
+    return render(request, 'accounts/forgot_password.html')
 
 
 def reset_password(request):
@@ -285,10 +287,10 @@ def reset_password(request):
         else:
             messages.error(request, 'Password do not match!')
 
-            return redirect('resetPassword')
+            return redirect('reset_password')
     else:
 
-        return render(request, 'accounts/resetPassword.html')
+        return render(request, 'accounts/reset_password.html')
 
 
 def reset_password_validate(request, uidb64, token):
@@ -302,7 +304,7 @@ def reset_password_validate(request, uidb64, token):
         request.session['uid'] = uid
         messages.success(request, 'Please reset your password')
 
-        return redirect('resetPassword')
+        return redirect('reset_password')
     else:
         messages.error(request, 'This link has been expired!')
 
