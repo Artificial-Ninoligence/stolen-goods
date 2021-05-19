@@ -6,7 +6,7 @@ from accounts.models import UserProfile
 CustomUser = get_user_model()
 
 
-class CustomUserTest(TestCase):
+class TestCustomUser(TestCase):
 
     def setUp(self):
         email = 'customusertest@unittest.com'
@@ -56,12 +56,26 @@ class CustomUserTest(TestCase):
         self.assertEqual(admin_user.__str__(), admin_user.email)
 
 
-class UserProfileTest(TestCase):
+class TestUserProfile(TestCase):
 
     def setUp(self):
 
+        email = 'customusertest@unittest.com'
+        username = 'usertest'
+        password = 'foo'
+        first_name = 'Tester'
+        last_name = 'Unitester'
+
+        self.custom_user = CustomUser.objects.create_user(
+            email=email,
+            username=username,
+            password=password,
+            first_name=first_name,
+            last_name=last_name
+        )
+
         self.user_profile = UserProfile.objects.create(
-            user_id=1,
+            user=self.custom_user,
             address_line_1='Storkower Str. 108',
             address_line_2='17/07',
             postal_code='10407',
@@ -70,8 +84,7 @@ class UserProfileTest(TestCase):
         )
 
     def test_userprofile_creation(self):
-        custom_user = CustomUserTest.setUp(self)
-        print(custom_user)
+
         user_profile = self.user_profile
 
         self.assertTrue(isinstance(user_profile, UserProfile))

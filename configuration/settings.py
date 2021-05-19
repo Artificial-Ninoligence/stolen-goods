@@ -130,8 +130,12 @@ WSGI_APPLICATION = 'configuration.wsgi.application'
 if DEBUG:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': './db.sqlite3'
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('POSTGRES_LOCAL_DB'),
+            'USER': config('POSTGRES_LOCAL_USER'),
+            'PASSWORD': config('POSTGRES_LOCAL_PASSWORD'),
+            'HOST': config('POSTGRES_LOCAL_HOST'),
+            'PORT': config('POSTGRES_LOCAL_PORT'),
         },
     }
 else:
