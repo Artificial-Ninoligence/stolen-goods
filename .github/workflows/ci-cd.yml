@@ -80,10 +80,10 @@ jobs:
         pytest --cov=. --cov-fail-under=30
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        POSTGRES_LOCAL_DB: ${{ secrets.POSTGRES_LOCAL_DB }}
+        POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         POSTGRES_USER : ${{ secrets.POSTGRES_USER }}
         POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        POSTGRES_LOCAL_HOST: ${{ secrets.POSTGRES_LOCAL_HOST }}
+        POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
         POSTGRES_PORT : ${{ secrets.POSTGRES_PORT }}
         EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
         EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
