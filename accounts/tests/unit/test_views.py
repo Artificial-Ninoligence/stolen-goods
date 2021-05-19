@@ -25,7 +25,7 @@ class TestLoginView(LiveServerTestCase):
 
     def setUp(self):
 
-        self.cm_driver = webdriver.Chrome()
+        self.cm_driver = webdriver.Chrome('drivers/chromedriver')
         self.client = Client()
 
     def test_login_form(self):
