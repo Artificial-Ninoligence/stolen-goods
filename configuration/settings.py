@@ -134,7 +134,7 @@ if DEBUG:
             'NAME': config('POSTGRES_LOCAL_DB'),
             'USER': config('POSTGRES_USER'),
             'PASSWORD': config('POSTGRES_PASSWORD'),
-            'HOST': 'localhost',
+            'HOST': config('POSTGRES_LOCAL_HOST'),
             'PORT': config('POSTGRES_PORT'),
         },
     }
