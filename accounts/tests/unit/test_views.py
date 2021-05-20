@@ -1,5 +1,4 @@
 from django.test import TestCase, Client
-# from django.urls import reverse
 from accounts.views import register, login, logout
 # import pytest
 
