@@ -6,7 +6,6 @@ class RegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'id': 'password',
         'placeholder': 'Enter Password',
-        'class': 'form-control',
     }))
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={
         'id': 'confirm_password',
@@ -57,6 +56,11 @@ class UserForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
+
+    dates_of_birth = forms.DateField(widget=forms.DateInput(attrs={
+        'id': 'dob',
+        'type': 'date',
+    }))
 
     profile_picture = forms.ImageField(
         required=False,
