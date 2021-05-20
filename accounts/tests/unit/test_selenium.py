@@ -5,7 +5,7 @@ from time import sleep
 # import pytest
 
 
-# @pytest.mark.skip(reason="No CI setup for selenium in Github Actions")
+@pytest.mark.skip(reason="No CI setup for selenium in Github Actions")
 class TestAccountForms(LiveServerTestCase):
 
     def setUp(self):
