@@ -2,7 +2,7 @@ from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from time import sleep
-# import pytest
+import pytest
 
 
 @pytest.mark.skip(reason="No CI setup for selenium in Github Actions")
