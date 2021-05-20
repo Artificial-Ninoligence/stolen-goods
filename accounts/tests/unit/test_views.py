@@ -7,11 +7,11 @@ class TestRegisterView(TestCase):
 
     def setUp(self):
 
-        self.client = Client()
+        self.response = Client().get('/accounts/register/')
 
     def test_register_template_and_url_status_code_200(self):
 
-        response = self.client.get('/accounts/register/')
+        response = self.response
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.resolver_match.func, register)
@@ -21,26 +21,27 @@ class TestLoginView(TestCase):
 
     def setUp(self):
 
-        self.client = Client()
+        self.response = Client().get('/accounts/login/')
 
     def test_login_template_and_url_status_code_200(self):
 
-        response = self.client.get('/accounts/login/')
+        response = self.response
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.resolver_match.func, login)
-
+        
 
 class TestLogoutView(TestCase):
 
     def setUp(self):
 
-        self.client = Client()
+        self.response = Client().get('/accounts/logout/')
+        self.expected_url = '/accounts/login/?next=%2Faccounts%2Flogout%2F'
 
     def test_logout_redirect_and_url_status_code_200(self):
 
-        response = self.client.get('/accounts/logout/')
-        expected_url = '/accounts/login/?next=%2Faccounts%2Flogout%2F'
+        response = self.response
+        expected_url = self.expected_url
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.resolver_match.func, logout)
