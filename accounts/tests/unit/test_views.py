@@ -30,6 +30,7 @@ class TestLoginView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.resolver_match.func, login)
 
+
 class TestLogoutView(TestCase):
 
     def setUp(self):

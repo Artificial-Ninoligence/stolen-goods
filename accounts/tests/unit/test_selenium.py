@@ -4,6 +4,7 @@ from selenium import webdriver
 from time import sleep
 import pytest
 
+
 @pytest.mark.skip(reason="No CI setup for selenium in Github Actions")
 class TestLoginForm(LiveServerTestCase):
 
