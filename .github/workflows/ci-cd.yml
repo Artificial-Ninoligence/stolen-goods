@@ -78,6 +78,7 @@ jobs:
       run:  |
         pytest --cov=. --cov-fail-under=30
       env:
+        DEBUG: ${{ secrets.DEBUG }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
         EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
