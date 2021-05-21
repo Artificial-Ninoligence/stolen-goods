@@ -43,6 +43,7 @@ class TestCustomUser(TestCase):
         self.assertEqual(custom_user.first_name, 'Tester')
         self.assertEqual(custom_user.last_name, 'Unitester')
         self.assertEqual(custom_user.email, 'customusertest@unittest.com')
+        self.assertEqual(custom_user.__str__(), custom_user.email)
         self.assertEqual(custom_user.full_name(), f"{custom_user.first_name} {custom_user.last_name}")
 
     def test_superuser_creation(self):
