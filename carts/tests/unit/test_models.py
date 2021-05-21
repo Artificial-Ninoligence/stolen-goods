@@ -29,11 +29,12 @@ class TestCarts(TestCase):
         )
 
         category = Category.objects.create(
-            name='jewellery',
-            slug='Jewellery',
+            name='Jewellery',
+            slug='jewellery',
             description='Oldest artefact used to show status',
             image='jewellery.png',
         )
+
         product = Product.objects.create(
             category_id=1,
             slug='blue-ocean-necklace',
